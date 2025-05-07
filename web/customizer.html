@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizer - Project AdUI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add specific styles for the customizer page here */
+        .customizer-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--adui-space-xl);
+        }
+
+        @media (min-width: 992px) {
+            .customizer-layout {
+                grid-template-columns: 1fr 2fr; /* Controls on left, preview on right */
+            }
+        }
+
+        .customizer-controls {
+            background-color: var(--adui-color-background-white);
+            padding: var(--adui-space-lg);
+            border-radius: var(--adui-border-radius-lg);
+            box-shadow: var(--adui-shadow-md);
+        }
+
+         .customizer-controls h3 {
+             margin-top: 0;
+             border-bottom: 1px solid var(--adui-color-border);
+             padding-bottom: var(--adui-space-sm);
+             margin-bottom: var(--adui-space-md);
+         }
+
+        .customizer-preview {
+            background-color: var(--adui-color-background-white);
+            padding: var(--adui-space-lg);
+            border-radius: var(--adui-border-radius-lg);
+            box-shadow: var(--adui-shadow-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px; /* Ensure preview area has some height */
+        }
+
+        .customizer-preview .adui-ad-container {
+            margin: 0 auto; /* Center the ad within the preview */
+            max-width: 100%; /* Ensure it doesn't overflow */
+        }
+
+        .control-group {
+            margin-bottom: var(--adui-space-md);
+            padding-bottom: var(--adui-space-md);
+            border-bottom: 1px dashed var(--adui-color-border);
+        }
+
+        .control-group:last-child {
+             border-bottom: none;
+             margin-bottom: 0;
+             padding-bottom: 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: var(--adui-font-weight-semibold);
+            margin-bottom: var(--adui-space-xs);
+            color: var(--adui-color-text-dark);
+        }
+
+        .control-group input[type="color"],
+        .control-group input[type="range"],
+        .control-group input[type="text"],
+        .control-group select {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--adui-color-border);
+            border-radius: var(--adui-border-radius-sm);
+            box-sizing: border-box;
+            font-family: var(--adui-font-family);
+            font-size: var(--adui-font-size-base);
+        }
+
+         .control-group input[type="color"] {
+             padding: 0.2rem; /* Adjust padding for color input */
+             height: 2.5rem; /* Consistent height */
+         }
+
+        .control-group input[type="range"] {
+            padding: 0; /* Remove padding for range input */
+        }
+
+        .code-output {
+            margin-top: var(--adui-space-xl);
+        }
+
+        .code-output h3 {
+             margin-bottom: var(--adui-space-md);
+        }
+
+        .code-output pre {
+            background-color: #2c3e50; /* Dark background for code */
+            color: #ecf0f1; /* Light text */
+            padding: var(--adui-space-md);
+            border-radius: var(--adui-border-radius-md);
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+         .code-output pre code {
+             color: #ecf0f1; /* Ensure code text is light */
+         }
+
+
+        /* Specific preview adjustments for some components */
+        .customizer-preview #previewContainer .adui-interstitial-overlay {
+             position: relative; /* Change position for preview */
+             visibility: visible; /* Make visible */
+             opacity: 1; /* Make opaque */
+             background-color: rgba(0, 0, 0, 0.1); /* Lighter background for preview */
+             height: 400px; /* Give it a fixed height for preview */
+             width: 100%;
+             overflow: hidden; /* Hide overflow */
+             pointer-events: none; /* Disable interactions in preview */
+        }
+         .customizer-preview #previewContainer .adui-interstitial-dialog {
+             position: absolute; /* Keep dialog absolute within the relative overlay */
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%) scale(1); /* Center it */
+             max-width: 90%;
+             max-height: 90%;
+             pointer-events: auto; /* Re-enable pointer events inside dialog */
+             overflow: auto;
+         }
+          .customizer-preview #previewContainer .adui-interstitial-close {
+              pointer-events: auto; /* Re-enable pointer events for the close button */
+          }
+
+         .customizer-preview #previewContainer .adui-sticky-banner-bottom,
+         .customizer-preview #previewContainer .adui-sticky-banner-top {
+             position: relative; /* Change position for preview */
+             transform: none; /* Remove transform */
+             box-shadow: none; /* Remove shadow */
+             border: 1px dashed var(--adui-color-border); /* Add dashed border */
+             margin: var(--adui-space-md) auto; /* Add margin */
+             width: 95%; /* Allow width adjustment */
+             padding: var(--adui-space-sm); /* Add padding */
+         }
+         .customizer-preview #previewContainer .adui-sticky-close {
+             position: static; /* Make close button static for preview */
+             transform: none;
+             margin-left: var(--adui-space-md);
+             align-self: center; /* Center vertically */
+         }
+
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Project AdUI</h1>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="guidelines.html">Guidelines</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="https://github.com/Nitra-Global/Project-AdUI/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="customizer">
+            <div class="container">
+                <h2>Customize Your Ad UI</h2>
+                <p>Select a component and adjust its appearance within recommended limits to ensure accessibility and a good user experience. Get the code for your customized component.</p>
+
+                <div class="customizer-layout">
+                    <div class="customizer-controls">
+                        <h3>Component and Styles</h3>
+
+                        <div class="control-group">
+                            <label for="component-select">Select Component:</label>
+                            <select id="component-select">
+                                <option value="">-- Select a Component --</option>
+                                <option value="banner">Responsive Banner Ad</option>
+                                <option value="medium-rectangle">Medium Rectangle Ad (300x250)</option>
+                                <option value="large-rectangle">Large Rectangle Ad (336x280)</option>
+                                <option value="leaderboard">Leaderboard Ad (728x90)</option>
+                                <option value="skyscraper">Skyscraper Ad (160x600)</option>
+                                <option value="wide-skyscraper">Wide Skyscraper Ad (300x600)</option>
+                                <option value="mobile-banner">Mobile Banner Ad (320x50)</option>
+                                <option value="large-mobile-banner">Large Mobile Banner Ad (320x100)</option>
+                                <option value="interstitial">Interstitial/Modal Ad</option>
+                                <option value="sticky-banner-bottom">Sticky Banner (Bottom)</option>
+                                <option value="sticky-banner-top">Sticky Banner (Top)</option>
+                                <option value="native">Basic Native Ad Structure</option>
+                                <option value="video-container">Video Ad Container</option>
+                                </select>
+                        </div>
+
+                        <div id="style-controls" style="display: none;">
+                            </div>
+                         <p id="no-customization-message" style="display: none;">Customization options will appear here after you select a component.</p>
+                    </div>
+
+                    <div class="customizer-preview">
+                        <h3>Live Preview</h3>
+                        <div id="previewContainer">
+                            <p class="text-center">Select a component from the left to see its preview here.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-output" id="codeOutput" style="display: none;">
+                    <h3>Generated Code</h3>
+                    <p>Copy the HTML and CSS below and use it in your project.</p>
+                    <pre><code id="generated-code"></code></pre>
+                    <button class="btn btn-primary mt-4" id="copy-code-button" style="display: none;">Copy Code</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p>&copy; 2025 Project AdUI. Licensed under the MIT License.</p>
+            <p class="text-sm mt-2">Built with standard HTML, CSS, and JavaScript.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const componentSelect = document.getElementById('component-select');
+            const styleControlsDiv = document.getElementById('style-controls');
+            const previewContainer = document.getElementById('previewContainer');
+            const codeOutputDiv = document.getElementById('codeOutput');
+            const generatedCodePre = document.getElementById('generated-code');
+            const copyCodeButton = document.getElementById('copy-code-button');
+            const noCustomizationMessage = document.getElementById('no-customization-message');
+
+            // Store base HTML for each component (simplified for demo)
+            // In a real project, you might fetch these from the components folder
+            const componentHtmlTemplates = {
+                'banner': `<div class="adui-ad-container adui-banner">
+                                <div class="adui-label">Advertisement</div>
+                                <div class="adui-content">
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <img src="https://placehold.co/728x90/3498db/ffffff?text=Your+Banner+Ad+Creative" alt="Placeholder banner ad creative">
+                                    </a>
+                                </div>
+                            </div>`,
+                'medium-rectangle': `<div class="adui-ad-container adui-medium-rectangle">
+                                        <div class="adui-label">Advertisement</div>
+                                        <div class="adui-content">
+                                            <a href="#" target="_blank" rel="noopener noreferrer">
+                                                <img src="https://placehold.co/300x250/2ecc71/ffffff?text=Medium+Rectangle+300x250" alt="Placeholder medium rectangle ad creative">
+                                            </a>
+                                        </div>
+                                    </div>`,
+                'large-rectangle': `<div class="adui-ad-container adui-large-rectangle">
+                                        <div class="adui-label">Advertisement</div>
+                                        <div class="adui-content">
+                                             <a href="#" target="_blank" rel="noopener noreferrer">
+                                                <img src="https://placehold.co/336x280/e74c3c/ffffff?text=Large+Rectangle+336x280" alt="Placeholder large rectangle ad creative">
+                                            </a>
+                                        </div>
+                                    </div>`,
+                'leaderboard': `<div class="adui-ad-container adui-leaderboard">
+                                    <div class="adui-label">Advertisement</div>
+                                    <div class="adui-content">
+                                         <a href="#" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://placehold.co/728x90/f1c40f/333333?text=Leaderboard+728x90" alt="Placeholder leaderboard ad creative">
+                                        </a>
+                                    </div>
+                                </div>`,
+                'skyscraper': `<div class="adui-ad-container adui-skyscraper">
+                                    <div class="adui-label">Advertisement</div>
+                                    <div class="adui-content">
+                                         <a href="#" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://placehold.co/160x600/9b59b6/ffffff?text=Skyscraper+160x600" alt="Placeholder skyscraper ad creative">
+                                        </a>
+                                    </div>
+                                </div>`,
+                'wide-skyscraper': `<div class="adui-ad-container adui-wide-skyscraper">
+                                    <div class="adui-label">Advertisement</div>
+                                    <div class="adui-content">
+                                         <a href="#" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://placehold.co/300x600/34495e/ffffff?text=Wide+Skyscraper+300x600" alt="Placeholder wide skyscraper ad creative">
+                                        </a>
+                                    </div>
+                                </div>`,
+                 'mobile-banner': `<div class="adui-ad-container adui-mobile-banner">
+                                    <div class="adui-label">Advertisement</div>
+                                    <div class="adui-content">
+                                         <a href="#" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://placehold.co/320x50/1abc9c/ffffff?text=Mobile+Banner+320x50" alt="Placeholder mobile banner ad creative">
+                                        </a>
+                                    </div>
+                                </div>`,
+                 'large-mobile-banner': `<div class="adui-ad-container adui-large-mobile-banner">
+                                    <div class="adui-label">Advertisement</div>
+                                    <div class="adui-content">
+                                         <a href="#" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://placehold.co/320x100/f39c12/ffffff?text=Large+Mobile+Banner+320x100" alt="Placeholder large mobile banner ad creative">
+                                        </a>
+                                    </div>
+                                </div>`,
+                 'interstitial': `<div class="adui-interstitial-overlay" id="previewInterstitial">
+                                     <div class="adui-interstitial-dialog" role="dialog" aria-modal="true" aria-labelledby="adui-interstitial-title-preview" tabindex="-1">
+                                          <button class="adui-interstitial-close" aria-label="Close ad">&times;</button>
+                                          <div class="adui-ad-container">
+                                              <div class="adui-label">Advertisement</div>
+                                              <div class="adui-content">
+                                                  <a href="#" target="_blank" rel="noopener noreferrer">
+                                                      <img src="https://placehold.co/600x400/c0392b/ffffff?text=Interstitial+Ad" alt="Placeholder interstitial ad creative">
+                                                  </a>
+                                                  <h2 id="adui-interstitial-title-preview" class="sr-only">Advertisement</h2>
+                                              </div>
+                                          </div>
+                                     </div>
+                                 </div>`,
+                 'sticky-banner-bottom': `<div class="adui-sticky-banner-bottom" id="previewStickyBottom">
+                                            <div class="adui-ad-container adui-banner">
+                                                <div class="adui-label">Advertisement</div>
+                                                <div class="adui-content">
+                                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                                        <img src="https://placehold.co/728x90/1abc9c/ffffff?text=Your+Sticky+Banner+Ad" alt="Placeholder sticky banner ad creative">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <button class="adui-sticky-close" aria-label="Close sticky ad">&times;</button>
+                                        </div>`,
+                 'sticky-banner-top': `<div class="adui-sticky-banner-top" id="previewStickyTop">
+                                            <div class="adui-ad-container adui-banner">
+                                                <div class="adui-label">Advertisement</div>
+                                                <div class="adui-content">
+                                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                                        <img src="https://placehold.co/728x90/1abc9c/ffffff?text=Your+Sticky+Banner+Ad" alt="Placeholder sticky banner ad creative">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <button class="adui-sticky-close" aria-label="Close sticky ad">&times;</button>
+                                        </div>`,
+                 'native': `<div class="adui-native-ad">
+                                <div class="adui-label">Sponsored</div>
+                                <div class="adui-native-media">
+                                     <a href="#" target="_blank" rel="noopener noreferrer">
+                                        <img src="https://placehold.co/400x250/3498db/ffffff?text=Native+Ad+Image" alt="Image related to the sponsored content: Placeholder image of a product.">
+                                    </a>
+                                </div>
+                                <div class="adui-native-title">Example Native Ad Title</div>
+                                <div class="adui-native-body">This is a brief description of the sponsored content. It should be relevant and engaging to the user.</div>
+                                <a href="#" class="adui-native-cta" target="_blank" rel="noopener noreferrer">Learn More</a>
+                                <div class="adui-native-attribution">by Example Advertiser</div>
+                            </div>`,
+                  'video-container': `<div class="adui-ad-container">
+                                        <div class="adui-label">Advertisement</div>
+                                        <div class="adui-content">
+                                            <div class="adui-video-container">
+                                                <video controls poster="https://placehold.co/640x360/2c3e50/ffffff?text=Video+Ad+Placeholder">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                                <div class="adui-video-overlay">
+                                                     <div class="adui-label">Advertisement</div>
+                                                     <a href="#" class="adui-video-cta" target="_blank" rel="noopener noreferrer">Watch Now</a>
+                                                </div>
+                                            </div>
+                                            <p class="mt-2 text-center text-sm text-gray-600">Placeholder for video ad.</p>
+                                        </div>
+                                    </div>`
+                // Add more templates here
+            };
+
+             // Define customizable properties for each component type
+             // This structure determines what controls are shown and what CSS is generated
+             const customizableProperties = {
+                 'default': { // Properties applicable to most adui-ad-container
+                     '.adui-ad-container': {
+                         '--adui-color-border': { type: 'color', label: 'Border Color', default: '#e0e0e0' },
+                         'border-width': { type: 'range', label: 'Border Width (px)', default: 1, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Background Color', default: '#fff' },
+                         '--adui-shadow-md': { type: 'text', label: 'Box Shadow', default: '0 2px 5px rgba(0, 0, 0, 0.08)', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' }, // Allow text for complex shadows
+                     },
+                     '.adui-label': {
+                         '--adui-color-label-bg': { type: 'color', label: 'Label Background', default: '#eef2f7' },
+                         '--adui-color-text-medium': { type: 'color', label: 'Label Text Color', default: '#555' }, // This variable is also used elsewhere, might need specific label text color variable
+                         'font-size': { type: 'range', label: 'Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                          'border-bottom-right-radius': { type: 'range', label: 'Label Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                      '.adui-content': {
+                          'padding': { type: 'range', label: 'Content Padding (rem)', default: 1, min: 0.5, max: 2, step: 0.1, unit: 'rem' },
+                      }
+                 },
+                 'interstitial': { // Specific properties for interstitial
+                      '.adui-interstitial-overlay': {
+                         'background-color': { type: 'color', label: 'Overlay Color', default: 'rgba(0, 0, 0, 0.8)', alpha: true }, // Indicate alpha support
+                      },
+                     '.adui-interstitial-dialog': {
+                         'background-color': { type: 'color', label: 'Dialog Background', default: '#fff' },
+                         '--adui-border-radius-lg': { type: 'range', label: 'Dialog Corner Radius (px)', default: 10, min: 0, max: 30, step: 1, unit: 'px' },
+                         '--adui-shadow-overlay': { type: 'text', label: 'Dialog Shadow', default: '0 8px 20px rgba(0, 0, 0, 0.4)', placeholder: 'e.g., 0 10px 30px rgba(0,0,0,0.5)' },
+                         'padding': { type: 'range', label: 'Dialog Padding (rem)', default: 2, min: 1, max: 3, step: 0.1, unit: 'rem' },
+                     },
+                     '.adui-interstitial-close': {
+                         'color': { type: 'color', label: 'Close Button Color', default: '#777' },
+                         'font-size': { type: 'range', label: 'Close Button Size (rem)', default: 1.8, min: 1, max: 2.5, step: 0.1, unit: 'rem' },
+                         'background-color': { type: 'color', label: 'Close Button Background', default: 'rgba(255, 255, 255, 0.9)', alpha: true },
+                         'border-radius': { type: 'range', label: 'Close Button Radius (px)', default: 50, min: 0, max: 50, step: 1, unit: 'px' },
+                     },
+                     // Inherits default properties too
+                      '.adui-ad-container': {
+                         '--adui-color-border': { type: 'color', label: 'Ad Border Color', default: '#e0e0e0' },
+                         'border-width': { type: 'range', label: 'Ad Border Width (px)', default: 1, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Ad Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Ad Background Color', default: '#fff' },
+                         'box-shadow': { type: 'text', label: 'Ad Box Shadow', default: '0 2px 5px rgba(0, 0, 0, 0.08)', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' },
+                     },
+                     '.adui-label': {
+                         '--adui-color-label-bg': { type: 'color', label: 'Ad Label Background', default: '#eef2f7' },
+                         '--adui-color-text-medium': { type: 'color', label: 'Ad Label Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Ad Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                          'border-bottom-right-radius': { type: 'range', label: 'Ad Label Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                      '.adui-content': {
+                          'padding': { type: 'range', label: 'Ad Content Padding (rem)', default: 1, min: 0, max: 2, step: 0.1, unit: 'rem' }, // Interstitial content often has 0 padding
+                      }
+                 },
+                 'sticky-banner-bottom': { // Specific properties for sticky banners
+                      '.adui-sticky-banner-bottom': {
+                         'background-color': { type: 'color', label: 'Banner Background', default: '#fff' },
+                         'border-top-color': { type: 'color', label: 'Border Color', default: '#e0e0e0' },
+                         'box-shadow': { type: 'text', label: 'Box Shadow', default: '0 -3px 8px rgba(0, 0, 0, 0.15)', placeholder: 'e.g., 0 -5px 10px rgba(0,0,0,0.2)' },
+                         'padding-top': { type: 'range', label: 'Vertical Padding (rem)', default: 0.5, min: 0.2, max: 1, step: 0.1, unit: 'rem' },
+                         'padding-bottom': { type: 'range', label: 'Vertical Padding (rem)', default: 0.5, min: 0.2, max: 1, step: 0.1, unit: 'rem' },
+                     },
+                      '.adui-sticky-close': {
+                         'color': { type: 'color', label: 'Close Button Color', default: '#777' },
+                         'font-size': { type: 'range', label: 'Close Button Size (rem)', default: 1.2, min: 0.8, max: 1.5, step: 0.1, unit: 'rem' },
+                         'background-color': { type: 'color', label: 'Close Button Background', default: 'rgba(255, 255, 255, 0.9)', alpha: true },
+                         'border-radius': { type: 'range', label: 'Close Button Radius (px)', default: 50, min: 0, max: 50, step: 1, unit: 'px' },
+                     },
+                     // Inherits default adui-ad-container styles for the *inner* container
+                      '.adui-ad-container': {
+                         '--adui-color-border': { type: 'color', label: 'Ad Border Color', default: 'transparent' }, // Default transparent for sticky inner
+                         'border-width': { type: 'range', label: 'Ad Border Width (px)', default: 0, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Ad Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Ad Background Color', default: 'transparent' }, // Default transparent
+                         'box-shadow': { type: 'text', label: 'Ad Box Shadow', default: 'none', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' },
+                     },
+                     '.adui-label': {
+                         '--adui-color-label-bg': { type: 'color', label: 'Ad Label Background', default: '#eef2f7' },
+                         '--adui-color-text-medium': { type: 'color', label: 'Ad Label Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Ad Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                          'border-bottom-right-radius': { type: 'range', label: 'Ad Label Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                      '.adui-content': {
+                          'padding': { type: 'range', label: 'Ad Content Padding (rem)', default: 0, min: 0, max: 1, step: 0.1, unit: 'rem' }, // Sticky content often has 0 padding
+                      }
+                 },
+                  'sticky-banner-top': { // Inherits same as bottom, just different base class
+                      '.adui-sticky-banner-top': {
+                         'background-color': { type: 'color', label: 'Banner Background', default: '#fff' },
+                         'border-bottom-color': { type: 'color', label: 'Border Color', default: '#e0e0e0' },
+                         'box-shadow': { type: 'text', label: 'Box Shadow', default: '0 3px 8px rgba(0, 0, 0, 0.15)', placeholder: 'e.g., 0 5px 10px rgba(0,0,0,0.2)' },
+                          'padding-top': { type: 'range', label: 'Vertical Padding (rem)', default: 0.5, min: 0.2, max: 1, step: 0.1, unit: 'rem' },
+                         'padding-bottom': { type: 'range', label: 'Vertical Padding (rem)', default: 0.5, min: 0.2, max: 1, step: 0.1, unit: 'rem' },
+                     },
+                      '.adui-sticky-close': {
+                         'color': { type: 'color', label: 'Close Button Color', default: '#777' },
+                         'font-size': { type: 'range', label: 'Close Button Size (rem)', default: 1.2, min: 0.8, max: 1.5, step: 0.1, unit: 'rem' },
+                         'background-color': { type: 'color', label: 'Close Button Background', default: 'rgba(255, 255, 255, 0.9)', alpha: true },
+                         'border-radius': { type: 'range', label: 'Close Button Radius (px)', default: 50, min: 0, max: 50, step: 1, unit: 'px' },
+                     },
+                     // Inherits default adui-ad-container styles for the *inner* container
+                      '.adui-ad-container': {
+                         '--adui-color-border': { type: 'color', label: 'Ad Border Color', default: 'transparent' },
+                         'border-width': { type: 'range', label: 'Ad Border Width (px)', default: 0, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Ad Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Ad Background Color', default: 'transparent' },
+                         'box-shadow': { type: 'text', label: 'Ad Box Shadow', default: 'none', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' },
+                     },
+                     '.adui-label': {
+                         '--adui-color-label-bg': { type: 'color', label: 'Ad Label Background', default: '#eef2f7' },
+                         '--adui-color-text-medium': { type: 'color', label: 'Ad Label Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Ad Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                          'border-bottom-right-radius': { type: 'range', label: 'Ad Label Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                      '.adui-content': {
+                          'padding': { type: 'range', label: 'Ad Content Padding (rem)', default: 0, min: 0, max: 1, step: 0.1, unit: 'rem' },
+                      }
+                 },
+                 'native': { // Specific properties for native ads
+                      '.adui-native-ad': {
+                         '--adui-color-border': { type: 'color', label: 'Container Border Color', default: '#e0e0e0' },
+                         'border-width': { type: 'range', label: 'Container Border Width (px)', default: 1, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Container Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Container Background Color', default: '#fff' },
+                         'box-shadow': { type: 'text', label: 'Container Box Shadow', default: '0 2px 5px rgba(0, 0, 0, 0.08)', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' },
+                         'padding': { type: 'range', label: 'Container Padding (rem)', default: 1.5, min: 0.5, max: 2.5, step: 0.1, unit: 'rem' },
+                      },
+                     '.adui-native-ad .adui-label': {
+                         'background-color': { type: 'color', label: 'Label Background', default: '#eef2f7' },
+                         'color': { type: 'color', label: 'Label Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                         'border-radius': { type: 'range', label: 'Label Corner Radius (px)', default: 4, min: 0, max: 10, step: 1, unit: 'px' },
+                     },
+                     '.adui-native-ad .adui-native-title': {
+                         'color': { type: 'color', label: 'Title Color', default: '#333' },
+                         'font-size': { type: 'range', label: 'Title Font Size (rem)', default: 1.3, min: 1, max: 1.8, step: 0.05, unit: 'rem' },
+                     },
+                      '.adui-native-ad .adui-native-body': {
+                         'color': { type: 'color', label: 'Body Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Body Font Size (rem)', default: 1, min: 0.8, max: 1.2, step: 0.05, unit: 'rem' },
+                     },
+                     '.adui-native-ad .adui-native-cta': {
+                         'background-color': { type: 'color', label: 'CTA Background', default: '#2ecc71' },
+                         'color': { type: 'color', label: 'CTA Text Color', default: '#fff' },
+                         'padding-top': { type: 'range', label: 'CTA Vertical Padding (rem)', default: 0.6, min: 0.4, max: 1, step: 0.1, unit: 'rem' },
+                         'padding-bottom': { type: 'range', label: 'CTA Vertical Padding (rem)', default: 0.6, min: 0.4, max: 1, step: 0.1, unit: 'rem' },
+                         'padding-left': { type: 'range', label: 'CTA Horizontal Padding (rem)', default: 1.5, min: 1, max: 2, step: 0.1, unit: 'rem' },
+                         'padding-right': { type: 'range', label: 'CTA Horizontal Padding (rem)', default: 1.5, min: 1, max: 2, step: 0.1, unit: 'rem' },
+                         'border-radius': { type: 'range', label: 'CTA Corner Radius (px)', default: 25, min: 0, max: 30, step: 1, unit: 'px' },
+                         'font-size': { type: 'range', label: 'CTA Font Size (rem)', default: 1, min: 0.8, max: 1.2, step: 0.05, unit: 'rem' },
+                     },
+                     '.adui-native-ad .adui-native-attribution': {
+                         'color': { type: 'color', label: 'Attribution Color', default: '#888' },
+                         'font-size': { type: 'range', label: 'Attribution Font Size (rem)', default: 0.75, min: 0.6, max: 0.9, step: 0.05, unit: 'rem' },
+                     }
+                 },
+                 'video-container': { // Specific properties for video container
+                      '.adui-ad-container': { // Outer container
+                         '--adui-color-border': { type: 'color', label: 'Outer Border Color', default: '#e0e0e0' },
+                         'border-width': { type: 'range', label: 'Outer Border Width (px)', default: 1, min: 0, max: 5, step: 1, unit: 'px' },
+                         '--adui-border-radius-md': { type: 'range', label: 'Outer Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                         '--adui-color-background-white': { type: 'color', label: 'Outer Background Color', default: '#fff' },
+                         'box-shadow': { type: 'text', label: 'Outer Box Shadow', default: '0 2px 5px rgba(0, 0, 0, 0.08)', placeholder: 'e.g., 0 4px 8px rgba(0,0,0,0.1)' },
+                         'padding': { type: 'range', label: 'Outer Padding (rem)', default: 1, min: 0.5, max: 2, step: 0.1, unit: 'rem' },
+                      },
+                     '.adui-label': { // Outer label
+                         '--adui-color-label-bg': { type: 'color', label: 'Outer Label Background', default: '#eef2f7' },
+                         '--adui-color-text-medium': { type: 'color', label: 'Outer Label Text Color', default: '#555' },
+                         'font-size': { type: 'range', label: 'Outer Label Font Size (rem)', default: 0.75, min: 0.6, max: 1, step: 0.05, unit: 'rem' },
+                          'border-bottom-right-radius': { type: 'range', label: 'Outer Label Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                     '.adui-video-container': { // Video container itself
+                         'background-color': { type: 'color', label: 'Video Background Color', default: '#000' },
+                         'border-radius': { type: 'range', label: 'Video Corner Radius (px)', default: 8, min: 0, max: 20, step: 1, unit: 'px' },
+                     },
+                     '.adui-video-overlay': { // Video overlay
+                         'background-color': { type: 'color', label: 'Overlay Color', default: 'rgba(0, 0, 0, 0.5)', alpha: true },
+                         'padding': { type: 'range', label: 'Overlay Padding (rem)', default: 1, min: 0.5, max: 2, step: 0.1, unit: 'rem' },
+                     },
+                      '.adui-video-overlay .adui-label': { // Overlay label
+                         'background-color': { type: 'color', label: 'Overlay Label Background', default: 'rgba(0, 0, 0, 0.7)', alpha: true },
+                         'color': { type: 'color', label: 'Overlay Label Text Color', default: '#fff' },
+                         'font-size': { type: 'range', label: 'Overlay Label Font Size (rem)', default: 0.7, min: 0.6, max: 0.9, step: 0.05, unit: 'rem' },
+                         'border-radius': { type: 'range', label: 'Overlay Label Corner Radius (px)', default: 3, min: 0, max: 10, step: 1, unit: 'px' },
+                     },
+                     '.adui-video-overlay .adui-video-cta': { // Overlay CTA
+                         'background-color': { type: 'color', label: 'Overlay CTA Background', default: '#e74c3c' },
+                         'color': { type: 'color', label: 'Overlay CTA Text Color', default: '#fff' },
+                         'padding-top': { type: 'range', label: 'Overlay CTA Vertical Padding (rem)', default: 0.5, min: 0.3, max: 0.8, step: 0.1, unit: 'rem' },
+                         'padding-bottom': { type: 'range', label: 'Overlay CTA Vertical Padding (rem)', default: 0.5, min: 0.3, max: 0.8, step: 0.1, unit: 'rem' },
+                         'padding-left': { type: 'range', label: 'Overlay CTA Horizontal Padding (rem)', default: 1, min: 0.8, max: 1.5, step: 0.1, unit: 'rem' },
+                         'padding-right': { type: 'range', label: 'Overlay CTA Horizontal Padding (rem)', default: 1, min: 0.8, max: 1.5, step: 0.1, unit: 'rem' },
+                         'border-radius': { type: 'range', label: 'Overlay CTA Corner Radius (px)', default: 4, min: 0, max: 20, step: 1, unit: 'px' },
+                         'font-size': { type: 'range', label: 'Overlay CTA Font Size (rem)', default: 0.9, min: 0.8, max: 1.1, step: 0.05, unit: 'rem' },
+                     }
+                 }
+                 // Add customization options for other components here, inheriting or overriding 'default'
+                 // For components like banner, medium-rectangle, etc., they can primarily use 'default'
+             };
+
+            // Function to generate controls based on selected component
+            function generateControls(componentKey) {
+                styleControlsDiv.innerHTML = ''; // Clear previous controls
+                noCustomizationMessage.style.display = 'none';
+
+                if (!componentKey) {
+                    styleControlsDiv.style.display = 'none';
+                    previewContainer.innerHTML = '<p class="text-center">Select a component from the left to see its preview here.</p>';
+                    codeOutputDiv.style.display = 'none';
+                    copyCodeButton.style.display = 'none';
+                    return;
+                }
+
+                const componentProps = customizableProperties[componentKey] || customizableProperties['default'];
+
+                let controlsHtml = '';
+                for (const selector in componentProps) {
+                    controlsHtml += `<div class="control-group"><h4>${selector}</h4>`;
+                    const properties = componentProps[selector];
+                    for (const property in properties) {
+                        const control = properties[property];
+                        const id = `${componentKey}-${selector.replace(/[^a-zA-Z0-9]/g, '-')}-${property}`.toLowerCase(); // Create a unique ID
+
+                        controlsHtml += `<label for="${id}">${control.label}:</label>`;
+
+                        if (control.type === 'color') {
+                            controlsHtml += `<input type="color" id="${id}" value="${control.default}">`;
+                            // Note: Alpha for color input is not standard HTML, requires JS library or text input
+                            if (control.alpha) {
+                                // For simplicity, we'll just use text input for RGBA
+                                controlsHtml += `<input type="text" id="${id}-rgba" value="${control.default}" placeholder="e.g., rgba(0,0,0,0.8)">`;
+                            }
+                        } else if (control.type === 'range') {
+                            controlsHtml += `<input type="range" id="${id}" value="${control.default}" min="${control.min}" max="${control.max}" step="${control.step}">`;
+                             controlsHtml += `<span>${control.default}${control.unit || ''}</span>`; // Display current value
+                        } else if (control.type === 'text') {
+                             controlsHtml += `<input type="text" id="${id}" value="${control.default}" placeholder="${control.placeholder || ''}">`;
+                        }
+                        // Add more control types (select, checkbox) as needed
+                    }
+                     controlsHtml += `</div>`; // Close control-group
+                }
+
+                styleControlsDiv.innerHTML = controlsHtml;
+                styleControlsDiv.style.display = 'block';
+                 codeOutputDiv.style.display = 'block';
+                 copyCodeButton.style.display = 'block';
+                 noCustomizationMessage.style.display = 'none';
+
+
+                // Add event listeners to controls
+                styleControlsDiv.querySelectorAll('input, select').forEach(control => {
+                    control.addEventListener('input', updatePreviewAndCode);
+                    // Update range value display
+                    if (control.type === 'range') {
+                         control.nextElementSibling.textContent = `${control.value}${customizableProperties[componentKey][control.parentElement.previousElementSibling.textContent.replace(/\s+/g, ' ').trim()][control.id.split('-').pop()].unit || ''}`;
+                         control.addEventListener('input', (e) => {
+                             e.target.nextElementSibling.textContent = `${e.target.value}${customizableProperties[componentKey][e.target.parentElement.previousElementSibling.textContent.replace(/\s+/g, ' ').trim()][e.target.id.split('-').pop()].unit || ''}`;
+                         });
+                    }
+                });
+
+                 // Initial update after generating controls
+                 updatePreviewAndCode();
+            }
+
+            // Function to update the live preview and generated code
+            function updatePreviewAndCode() {
+                const selectedComponentKey = componentSelect.value;
+                if (!selectedComponentKey || !componentHtmlTemplates[selectedComponentKey]) {
+                    previewContainer.innerHTML = '<p class="text-center">Select a component from the left to see its preview here.</p>';
+                    generatedCodePre.textContent = '';
+                    codeOutputDiv.style.display = 'none';
+                    copyCodeButton.style.display = 'none';
+                    return;
+                }
+
+                // Get the base HTML for the selected component
+                let currentHtml = componentHtmlTemplates[selectedComponentKey];
+
+                // Create a temporary container to apply styles for preview
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = currentHtml;
+                const previewElement = tempContainer.firstElementChild; // The root element of the component
+
+                // Collect custom styles from controls
+                const customStyles = {};
+                styleControlsDiv.querySelectorAll('.control-group').forEach(group => {
+                    const selectorText = group.querySelector('h4').textContent;
+                    customStyles[selectorText] = {};
+                    group.querySelectorAll('input:not([type="text"][id$="-rgba"]), select').forEach(control => {
+                        const property = control.id.split('-').pop(); // Get property name from ID
+                        let value = control.value;
+                         const propConfig = customizableProperties[selectedComponentKey][selectorText][property];
+
+                         // Handle units for range inputs
+                         if (control.type === 'range' && propConfig.unit) {
+                             value += propConfig.unit;
+                         }
+
+                         // Handle RGBA text input if color input has alpha: true
+                         if (propConfig.type === 'color' && propConfig.alpha) {
+                             const rgbaInput = document.getElementById(`${control.id}-rgba`);
+                             if (rgbaInput && rgbaInput.value) {
+                                 value = rgbaInput.value; // Use the text input value for RGBA
+                             }
+                         }
+
+
+                        customStyles[selectorText][property] = value;
+
+                        // Apply styles directly to the preview element(s) for live update
+                        // This is a simplified approach. For complex selectors, you'd need querySelectorAll
+                        try {
+                             if (selectorText === '.adui-ad-container') {
+                                 // Handle CSS variables vs direct properties
+                                 if (property.startsWith('--')) {
+                                     previewElement.style.setProperty(property, value);
+                                 } else {
+                                     previewElement.style[property] = value;
+                                 }
+                             } else {
+                                 // Find the specific element(s) within the preview
+                                 const targetElements = previewElement.querySelectorAll(selectorText);
+                                 targetElements.forEach(el => {
+                                     if (property.startsWith('--')) {
+                                         el.style.setProperty(property, value);
+                                     } else {
+                                         el.style[property] = value;
+                                     }
+                                 });
+                             }
+                        } catch (e) {
+                            console.error(`Could not apply style "${property}: ${value}" to "${selectorText}":`, e);
+                            // Handle potential errors with invalid CSS values from text inputs
+                        }
+                    });
+                });
+
+                // Render the preview
+                previewContainer.innerHTML = ''; // Clear previous preview
+                previewContainer.appendChild(previewElement);
+
+                // Generate the CSS string
+                let generatedCss = `<style>\n`;
+                 // Add a comment indicating it's customized
+                generatedCss += `  /* Customized styles for the ${selectedComponentKey} component */\n`;
+                 // Add a unique class to the root element for scoping, or modify existing classes
+                 // For simplicity, let's generate styles that target the component's existing classes
+                 // A more robust approach might involve adding a unique ID or class to the parent container
+                 // and scoping styles like `#my-custom-ad .adui-ad-container { ... }`
+
+                for (const selector in customStyles) {
+                    const properties = customStyles[selector];
+                    const styleDeclarations = Object.entries(properties)
+                        .map(([prop, val]) => `    ${prop}: ${val};`)
+                        .join('\n');
+
+                    if (styleDeclarations) {
+                         // Add a comment for the selector
+                         generatedCss += `\n  /* Styles for ${selector} */\n`;
+                         generatedCss += `  ${selector} {\n${styleDeclarations}\n  }\n`;
+                    }
+                }
+                generatedCss += `</style>`;
+
+                // Generate the full code snippet (HTML + CSS)
+                const fullCode = `${currentHtml}\n\n${generatedCss}`;
+
+                // Display the generated code
+                generatedCodePre.textContent = fullCode;
+                 // Apply syntax highlighting (if using a library like Prism.js)
+                 if (window.Prism) {
+                     Prism.highlightElement(generatedCodePre);
+                 }
+
+                 codeOutputDiv.style.display = 'block';
+                 copyCodeButton.style.display = 'block';
+            }
+
+
+            // Handle component selection change
+            componentSelect.addEventListener('change', (e) => {
+                const selectedComponentKey = e.target.value;
+                generateControls(selectedComponentKey);
+            });
+
+            // Handle initial load if component is specified in URL (e.g., customizer.html?component=banner)
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialComponent = urlParams.get('component');
+            if (initialComponent && componentHtmlTemplates[initialComponent]) {
+                componentSelect.value = initialComponent;
+                generateControls(initialComponent);
+            } else {
+                 // Show initial message if no component selected
+                 noCustomizationMessage.style.display = 'block';
+            }
+
+
+            // --- Copy Code Button Logic ---
+            if (copyCodeButton) {
+                copyCodeButton.addEventListener('click', () => {
+                    const codeToCopy = generatedCodePre.textContent;
+                    navigator.clipboard.writeText(codeToCopy).then(() => {
+                        // Provide user feedback
+                        copyCodeButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyCodeButton.textContent = 'Copy Code';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy code: ', err);
+                        copyCodeButton.textContent = 'Copy Failed!';
+                         setTimeout(() => {
+                            copyCodeButton.textContent = 'Copy Code';
+                        }, 2000);
+                    });
+                });
+            }
+
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+
+</body>
+</html>

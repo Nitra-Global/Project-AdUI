@@ -622,19 +622,23 @@
 
                 let controlsHtml = '';
                 for (const selector in mergedProps) {
+                    // Skip selectors that have no customizable properties defined after merging
+                    if (Object.keys(mergedProps[selector]).length === 0) {
+                        continue;
+                    }
+
                     controlsHtml += `<div class="control-group"><h4>${selector}</h4>`;
                     const properties = mergedProps[selector];
                     for (const property in properties) {
                         const control = properties[property];
-                        const id = `${componentKey}-${selector.replace(/[^a-zA-Z0-9]/g, '-')}-${property}`.toLowerCase(); // Create a unique ID
+                        // Generate a unique ID for the control
+                        const id = `${componentKey}-${selector.replace(/[^a-zA-Z0-9]/g, '-')}-${property}`.toLowerCase().replace(/--/g, ''); // Clean up ID
 
                         controlsHtml += `<label for="${id}">${control.label}:</label>`;
 
                         if (control.type === 'color') {
                             controlsHtml += `<input type="color" id="${id}" value="${control.default}">`;
-                            // Note: Alpha for color input is not standard HTML, requires JS library or text input
                             if (control.alpha) {
-                                // For simplicity, we'll just use text input for RGBA
                                 controlsHtml += `<input type="text" id="${id}-rgba" value="${control.default}" placeholder="${control.placeholder || 'e.g., rgba(0,0,0,0.8)'}">`;
                             }
                         } else if (control.type === 'range') {
@@ -658,13 +662,53 @@
                 // Add event listeners to controls
                 styleControlsDiv.querySelectorAll('input, select').forEach(control => {
                     control.addEventListener('input', updatePreviewAndCode);
+
                     // Update range value display ONLY for range inputs
                     if (control.type === 'range') {
-                         control.nextElementSibling.textContent = `${control.value}${mergedProps[control.parentElement.querySelector('h4').textContent][control.id.split('-').pop()].unit || ''}`;
+                         // Find the corresponding property configuration using the control's ID structure
+                         const idParts = control.id.split('-');
+                         const componentKeyFromId = idParts[0];
+                         const propertyFromId = idParts.pop();
+                         const selectorFromId = idParts.slice(1).join('-').replace(/-/g, '.'); // Reconstruct selector
+
+                         const currentComponentProps = customizableProperties[componentKeyFromId] || {};
+                         const currentMergedProps = { ...customizableProperties['default'] };
+                          for (const sel in currentComponentProps) {
+                              if (currentMergedProps[sel]) {
+                                  currentMergedProps[sel] = { ...currentMergedProps[sel], ...currentComponentProps[sel] };
+                              } else {
+                                  currentMergedProps[sel] = currentComponentProps[sel];
+                              }
+                          }
+
+                         const propConfig = currentMergedProps[selectorFromId] ? currentMergedProps[selectorFromId][propertyFromId] : null;
+
+
+                         if (control.nextElementSibling && propConfig) {
+                             control.nextElementSibling.textContent = `${control.value}${propConfig.unit || ''}`;
+                         }
+
                          control.addEventListener('input', (e) => {
-                             // Ensure the next element sibling exists before updating textContent
-                             if (e.target.nextElementSibling) {
-                                e.target.nextElementSibling.textContent = `${e.target.value}${mergedProps[e.target.parentElement.querySelector('h4').textContent][e.target.id.split('-').pop()].unit || ''}`;
+                             // Re-calculate propConfig inside the event listener as well
+                             const innerIdParts = e.target.id.split('-');
+                             const innerComponentKey = innerIdParts[0];
+                             const innerProperty = innerIdParts.pop();
+                             const innerSelector = innerIdParts.slice(1).join('-').replace(/-/g, '.');
+
+                             const innerComponentProps = customizableProperties[innerComponentKey] || {};
+                             const innerMergedProps = { ...customizableProperties['default'] };
+                              for (const sel in innerComponentProps) {
+                                  if (innerMergedProps[sel]) {
+                                      innerMergedProps[sel] = { ...innerMergedProps[sel], ...innerComponentProps[sel] };
+                                  } else {
+                                      innerMergedProps[sel] = innerComponentProps[sel];
+                                  }
+                              }
+                             const innerPropConfig = innerMergedProps[innerSelector] ? innerMergedProps[innerSelector][innerProperty] : null;
+
+
+                             if (e.target.nextElementSibling && innerPropConfig) {
+                                e.target.nextElementSibling.textContent = `${e.target.value}${innerPropConfig.unit || ''}`;
                              }
                          });
                     }
@@ -702,17 +746,22 @@
                         const property = control.id.split('-').pop(); // Get property name from ID
                         let value = control.value;
 
-                         // Get the correct property configuration, falling back to default if needed
-                         const componentSpecificProps = customizableProperties[selectedComponentKey] || {};
+                         // Get the correct property configuration using the control's ID structure
+                         const idParts = control.id.split('-');
+                         const componentKeyFromId = idParts[0];
+                         const propertyFromId = idParts.pop();
+                         const selectorFromId = idParts.slice(1).join('-').replace(/-/g, '.'); // Reconstruct selector
+
+                         const componentSpecificProps = customizableProperties[componentKeyFromId] || {};
                          const mergedProps = { ...customizableProperties['default'] };
-                         for (const sel in componentSpecificProps) {
-                             if (mergedProps[sel]) {
-                                 mergedProps[sel] = { ...mergedProps[sel], ...componentSpecificProps[sel] };
-                             } else {
-                                 mergedProps[sel] = componentSpecificProps[sel];
-                             }
-                         }
-                         const propConfig = mergedProps[selectorText] ? mergedProps[selectorText][property] : null;
+                          for (const sel in componentSpecificProps) {
+                              if (mergedProps[sel]) {
+                                  mergedProps[sel] = { ...mergedProps[sel], ...componentSpecificProps[sel] };
+                              } else {
+                                  mergedProps[sel] = componentSpecificProps[sel];
+                              }
+                          }
+                         const propConfig = mergedProps[selectorFromId] ? mergedProps[selectorFromId][propertyFromId] : null;
 
 
                          // Handle units for range inputs
@@ -803,10 +852,6 @@
                 let generatedCss = `<style>\n`;
                  // Add a comment indicating it's customized
                 generatedCss += `  /* Customized styles for the ${selectedComponentKey} component */\n`;
-                 // Add a unique class to the root element for scoping, or modify existing classes
-                 // For simplicity, let's generate styles that target the component's existing classes
-                 // A more robust approach might involve adding a unique ID or class to the parent container
-                 // and scoping styles like `#my-custom-ad .adui-ad-container { ... }`
 
                 for (const selector in customStyles) {
                     const properties = customStyles[selector];

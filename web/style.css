@@ -1,46 +1,49 @@
-/* style.css - Project AdUI Custom Styles (Latest) */
+/* style.css - Project AdUI Custom Styles (Redesigned) */
 
 /* --- CSS Variables for Customization --- */
+/* Using a more modern, softer color palette */
 :root {
     /* Colors */
-    --adui-color-primary: #3498db; /* Blue */
-    --adui-color-secondary: #2ecc71; /* Green */
-    --adui-color-danger: #e74c3c; /* Red */
-    --adui-color-text-dark: #333;
-    --adui-color-text-medium: #555;
-    --adui-color-text-light: #888;
-    --adui-color-background-light: #f4f7f6; /* Soft light background */
-    --adui-color-background-white: #fff;
-    --adui-color-border: #e0e0e0; /* Light grey border */
-    --adui-color-label-bg: #eef2f7; /* Very light blue-grey */
-    --adui-color-overlay: rgba(0, 0, 0, 0.8); /* Dark overlay for modals */
+    --adui-color-primary: #007bff; /* Vibrant Blue */
+    --adui-color-secondary: #6c757d; /* Muted Grey */
+    --adui-color-accent: #28a745; /* Success Green */
+    --adui-color-danger: #dc3545; /* Danger Red */
+    --adui-color-text-dark: #212529; /* Dark Grey */
+    --adui-color-text-medium: #495057; /* Medium Grey */
+    --adui-color-text-light: #adb5bd; /* Light Grey */
+    --adui-color-background-light: #f8f9fa; /* Very Light Grey */
+    --adui-color-background-white: #ffffff; /* White */
+    --adui-color-border: #dee2e6; /* Light Border Grey */
+    --adui-color-label-bg: #e9ecef; /* Lighter Grey for labels */
+    --adui-color-overlay: rgba(33, 37, 41, 0.7); /* Darker, slightly transparent overlay */
 
     /* Spacing */
     --adui-space-xs: 0.5rem;    /* 8px */
-    --adui-space-sm: 0.8rem;    /* 12.8px */
+    --adui-space-sm: 0.75rem;   /* 12px */
     --adui-space-md: 1rem;      /* 16px */
     --adui-space-lg: 1.5rem;    /* 24px */
     --adui-space-xl: 2rem;      /* 32px */
-    --adui-space-xxl: 3rem;     /* 48px */
+    --adui-space-xxl: 4rem;     /* 64px - More generous section spacing */
 
     /* Typography */
     --adui-font-family: 'Inter', sans-serif;
     --adui-font-size-base: 1rem;
-    --adui-font-size-sm: 0.9rem;
-    --adui-font-size-xs: 0.75rem;
+    --adui-font-size-sm: 0.875rem; /* 14px */
+    --adui-font-size-xs: 0.75rem; /* 12px */
     --adui-font-weight-normal: 400;
     --adui-font-weight-semibold: 600;
     --adui-font-weight-bold: 700;
     --adui-line-height-base: 1.6;
+    --adui-line-height-heading: 1.2;
 
     /* Borders & Shadows */
-    --adui-border-radius-sm: 4px;
-    --adui-border-radius-md: 8px;
-    --adui-border-radius-lg: 10px;
-    --adui-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --adui-shadow-md: 0 2px 5px rgba(0, 0, 0, 0.08);
-    --adui-shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.12);
-    --adui-shadow-overlay: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --adui-border-radius-sm: 0.25rem; /* 4px */
+    --adui-border-radius-md: 0.5rem;  /* 8px */
+    --adui-border-radius-lg: 0.75rem; /* 12px */
+    --adui-shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+    --adui-shadow-md: 0 .5rem 1rem rgba(0,0,0,.15);
+    --adui-shadow-lg: 0 1rem 3rem rgba(0,0,0,.175);
+    --adui-shadow-overlay: 0 1rem 3rem rgba(0,0,0,.4);
 
     /* Transitions */
     --adui-transition-duration: 0.3s;
@@ -48,6 +51,10 @@
 }
 
 /* --- General Styles --- */
+*, *::before, *::after {
+    box-sizing: border-box; /* Better box model */
+}
+
 body {
     font-family: var(--adui-font-family);
     line-height: var(--adui-line-height-base);
@@ -60,23 +67,27 @@ body {
 }
 
 .container {
-    max-width: 1280px;
+    width: 100%; /* Use 100% width */
+    max-width: 1200px; /* Max width slightly reduced */
     margin: 0 auto;
     padding: 0 var(--adui-space-lg); /* Consistent padding */
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: var(--adui-font-weight-bold);
+    margin-top: 0;
     margin-bottom: var(--adui-space-md);
-    color: #2c3e50; /* Darker blue-grey heading color */
+    color: var(--adui-color-text-dark);
+    line-height: var(--adui-line-height-heading);
 }
 
-h1 { font-size: 2.8rem; margin-bottom: var(--adui-space-lg);}
-h2 { font-size: 2.2rem; margin-bottom: var(--adui-space-xl);}
-h3 { font-size: 1.7rem; margin-bottom: var(--adui-space-md);}
-h4 { font-size: 1.3rem; margin-bottom: var(--adui-space-sm);}
+h1 { font-size: 2.5rem; margin-bottom: var(--adui-space-lg);}
+h2 { font-size: 2rem; margin-bottom: var(--adui-space-xl);}
+h3 { font-size: 1.75rem; margin-bottom: var(--adui-space-md);}
+h4 { font-size: 1.5rem; margin-bottom: var(--adui-space-sm);}
 
 p {
+    margin-top: 0;
     margin-bottom: var(--adui-space-md);
 }
 
@@ -87,25 +98,29 @@ a {
 }
 
 a:hover {
-    color: #2980b9; /* Darker blue on hover */
+    color: #0056b3; /* Darker blue on hover */
     text-decoration: underline;
 }
 
 ul {
+    margin-top: 0;
     margin-bottom: var(--adui-space-md);
     padding-left: var(--adui-space-lg);
 }
 
 li {
-    margin-bottom: var(--adui-space-xs);
+    margin-bottom: var(--adui-space-sm); /* Slightly more space between list items */
 }
 
 /* --- Header Styles --- */
 .site-header {
-    background-color: #2c3e50; /* Dark blue-grey */
-    color: #ecf0f1; /* Light grey */
+    background-color: var(--adui-color-background-white);
+    color: var(--adui-color-text-dark);
     padding: var(--adui-space-md) 0;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--adui-shadow-sm);
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 100; /* Ensure it stays on top */
 }
 
 .site-header .container {
@@ -117,8 +132,8 @@ li {
 
 .site-header h1 {
     margin: 0;
-    color: #ecf0f1;
-    font-size: 2rem;
+    color: var(--adui-color-text-dark);
+    font-size: 1.75rem; /* Slightly smaller header title */
 }
 
 .site-nav ul {
@@ -131,24 +146,23 @@ li {
 }
 
 .site-nav li {
-    margin-left: var(--adui-space-lg); /* Increased spacing */
+    margin-left: var(--adui-space-xl); /* Increased spacing */
     margin-bottom: 0;
 }
 
 .site-nav a {
-    color: #ecf0f1;
+    color: var(--adui-color-text-medium);
     text-decoration: none;
     font-weight: var(--adui-font-weight-semibold);
-    transition: color var(--adui-transition-duration) var(--adui-transition-timing-function), opacity var(--adui-transition-duration) var(--adui-transition-timing-function);
-    opacity: 0.9;
+    transition: color var(--adui-transition-duration) var(--adui-transition-timing-function);
 }
 
 .site-nav a:hover {
-    color: #bdc3c7;
+    color: var(--adui-color-primary);
     text-decoration: none;
-    opacity: 1;
 }
 
+/* Mobile Header Adjustments */
 @media (max-width: 768px) {
     .site-header .container {
         flex-direction: column;
@@ -161,76 +175,90 @@ li {
         justify-content: center;
     }
     .site-nav li {
-        margin: var(--adui-space-xs) var(--adui-space-sm); /* Adjust spacing */
+        margin: var(--adui-space-sm) var(--adui-space-md); /* Adjust spacing */
     }
 }
 
 /* --- Section Styles --- */
 section {
     padding: var(--adui-space-xxl) 0; /* More vertical padding */
-    margin-bottom: var(--adui-space-xxl); /* More space between sections */
+    /* Removed margin-bottom to let padding handle spacing */
 }
 
+/* Alternating background colors for sections */
 section:nth-of-type(odd) {
     background-color: var(--adui-color-background-white);
-    box-shadow: var(--adui-shadow-md);
-    border-radius: var(--adui-border-radius-lg);
 }
 
 section:nth-of-type(even) {
-     background-color: var(--adui-color-label-bg); /* Use label background color */
-     border-radius: var(--adui-border-radius-lg);
+     background-color: var(--adui-color-background-light);
 }
 
 section h2 {
     text-align: center;
-    margin-bottom: var(--adui-space-xl); /* Slightly less margin for section titles */
+    margin-bottom: var(--adui-space-xxl);
 }
 
 /* --- Button Styles --- */
 .btn {
-    display: inline-block;
-    padding: 0.9rem 2rem; /* Larger padding */
-    border-radius: 30px; /* Pronounced pill shape */
-    font-size: 1.05rem;
+    display: inline-flex; /* Use flex for better alignment */
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem; /* Standard padding */
+    border-radius: var(--adui-border-radius-md); /* Standard rounded corners */
+    font-size: var(--adui-font-size-base);
     font-weight: var(--adui-font-weight-semibold);
     text-align: center;
     cursor: pointer;
-    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function), color var(--adui-transition-duration) var(--adui-transition-timing-function), border-color var(--adui-transition-duration) var(--adui-transition-timing-function), transform 0.1s ease;
-    border: none;
+    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function), color var(--adui-transition-duration) var(--adui-transition-timing-function), border-color var(--adui-transition-duration) var(--adui-transition-timing-function), box-shadow var(--adui-transition-duration) var(--adui-transition-timing-function);
+    border: 1px solid transparent; /* Add a default border */
     text-decoration: none;
     box-shadow: var(--adui-shadow-sm);
 }
 
 .btn:hover {
-    transform: translateY(-1px); /* Subtle lift effect */
+    text-decoration: none; /* Remove underline on hover */
     box-shadow: var(--adui-shadow-md);
 }
 
 .btn-primary {
     background-color: var(--adui-color-primary);
     color: #fff;
+    border-color: var(--adui-color-primary);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: #0056b3;
+    border-color: #004085;
 }
 
 .btn-secondary {
-    background-color: #ecf0f1; /* Lighter grey */
-    color: var(--adui-color-text-dark);
-    border: 1px solid #bdc3c7;
+    background-color: var(--adui-color-secondary);
+    color: #fff;
+    border-color: var(--adui-color-secondary);
 }
 
 .btn-secondary:hover {
-    background-color: #dcdfe4;
-    border-color: #aeb6bf;
+    background-color: #545b62;
+    border-color: #4e555b;
 }
+
+.btn-outline-primary {
+    background-color: transparent;
+    color: var(--adui-color-primary);
+    border-color: var(--adui-color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--adui-color-primary);
+    color: #fff;
+}
+
 
 .btn-sm { /* Smaller button size */
     padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    border-radius: 20px;
+    font-size: var(--adui-font-size-sm);
+    border-radius: var(--adui-border-radius-md);
 }
 
 
@@ -242,20 +270,20 @@ section h2 {
     margin-right: 0;
 }
 
+/* Mobile Button Adjustments */
 @media (max-width: 768px) {
     .btn-group {
         text-align: center;
     }
     .btn-group .btn {
-        display: block;
-        margin: var(--adui-space-sm) auto;
-        width: 90%;
-        padding: 0.8rem 1.5rem;
+        display: inline-flex; /* Keep buttons inline on mobile */
+        margin: var(--adui-space-sm); /* Adjust spacing */
+        width: auto; /* Allow width to adjust */
+        padding: 0.75rem 1.5rem; /* Keep standard padding */
     }
      .btn-group .btn-sm {
-         width: auto; /* Allow small buttons to be inline */
-         display: inline-block;
-         margin: 0.5rem 0.5rem;
+         padding: 0.5rem 1rem; /* Keep small padding */
+         margin: var(--adui-space-xs); /* Adjust spacing */
      }
 }
 
@@ -272,14 +300,14 @@ section h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: var(--adui-shadow-md); /* Softer shadow */
-    font-size: var(--adui-font-size-sm); /* Slightly larger text */
+    box-shadow: var(--adui-shadow-sm); /* Softer shadow */
+    font-size: var(--adui-font-size-sm);
     color: var(--adui-color-text-medium);
     transition: box-shadow var(--adui-transition-duration) var(--adui-transition-timing-function); /* Add transition */
 }
 
 .adui-ad-container:hover {
-     box-shadow: var(--adui-shadow-lg); /* Subtle shadow on hover */
+     box-shadow: var(--adui-shadow-md); /* Subtle shadow on hover */
 }
 
 
@@ -289,8 +317,8 @@ section h2 {
     left: 0;
     background-color: var(--adui-color-label-bg);
     color: var(--adui-color-text-medium);
-    font-size: var(--adui-font-size-xs); /* Smaller label text */
-    padding: 0.3rem 0.6rem; /* More padding */
+    font-size: var(--adui-font-size-xs);
+    padding: 0.25rem 0.75rem; /* Adjusted padding */
     border-bottom-right-radius: var(--adui-border-radius-md);
     z-index: 10;
     font-weight: var(--adui-font-weight-semibold);
@@ -319,7 +347,7 @@ section h2 {
 
 /* --- Specific Ad Format Styles --- */
 
-/* Fixed Size Formats */
+/* Fixed Size Formats - Maintain fixed size on larger screens, become fluid on small */
 .adui-medium-rectangle { width: 300px; height: 250px; }
 .adui-large-rectangle { width: 336px; height: 280px; }
 .adui-leaderboard { width: 728px; height: 90px; }
@@ -343,73 +371,71 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--adui-color-overlay); /* Darker, more opaque overlay */
+    background-color: var(--adui-color-overlay);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* High z-index to cover everything */
-    visibility: hidden; /* Hidden by default */
+    z-index: 1000;
+    visibility: hidden;
     opacity: 0;
     transition: opacity 0.4s var(--adui-transition-timing-function), visibility 0.4s var(--adui-transition-timing-function);
-    /* Add pointer-events: none; when hidden to prevent interaction */
     pointer-events: none;
 }
 
 .adui-interstitial-overlay.is-visible {
     visibility: visible;
     opacity: 1;
-    pointer-events: auto; /* Enable interaction when visible */
+    pointer-events: auto;
 }
 
 .adui-interstitial-dialog {
     position: relative;
     background-color: var(--adui-color-background-white);
-    padding: var(--adui-space-xl); /* More padding */
+    padding: var(--adui-space-xl);
     border-radius: var(--adui-border-radius-lg);
-    max-width: 95%; /* Wider max width */
-    max-height: 95%; /* Taller max height */
+    max-width: 90%; /* Slightly smaller max-width */
+    max-height: 90%;
     overflow: auto;
-    box-shadow: var(--adui-shadow-overlay); /* More prominent shadow */
-    transform: scale(0.95); /* Subtle scale-in effect */
+    box-shadow: var(--adui-shadow-overlay);
+    transform: scale(0.98); /* Subtle scale-in effect */
     transition: transform 0.3s var(--adui-transition-timing-function);
-    outline: none; /* Remove default focus outline */
-    /* Ensure dialog is focusable for JS focus management */
+    outline: none;
     /* tabindex="-1" is added in the HTML structure */
 }
 
 .adui-interstitial-overlay.is-visible .adui-interstitial-dialog {
-    transform: scale(1); /* Scale to normal when visible */
+    transform: scale(1);
 }
 
 
 .adui-interstitial-close {
     position: absolute;
-    top: var(--adui-space-sm); /* More space from top */
-    right: var(--adui-space-sm); /* More space from right */
+    top: var(--adui-space-sm);
+    right: var(--adui-space-sm);
     background: none;
     border: none;
-    font-size: 1.8rem; /* Larger close icon */
+    font-size: 1.8rem;
     cursor: pointer;
     color: var(--adui-color-text-medium);
-    padding: var(--adui-space-sm); /* Larger clickable area */
+    padding: var(--adui-space-sm);
     line-height: 1;
     z-index: 10;
     transition: color var(--adui-transition-duration) var(--adui-transition-timing-function), transform 0.2s var(--adui-transition-timing-function);
-    border-radius: 50%; /* Rounded button */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly visible background */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
     box-shadow: var(--adui-shadow-sm);
 }
 
 .adui-interstitial-close:hover {
     color: var(--adui-color-text-dark);
-    transform: rotate(90deg); /* Subtle rotate effect */
+    transform: rotate(90deg);
     background-color: rgba(255, 255, 255, 1);
 }
 
 /* Ensure close button is keyboard focusable and has outline */
 .adui-interstitial-close:focus {
-    outline: 2px solid var(--adui-color-primary); /* Blue outline */
-    outline-offset: 3px; /* Offset outline */
+    outline: 2px solid var(--adui-color-primary);
+    outline-offset: 3px;
 }
 
 
@@ -422,11 +448,11 @@ section h2 {
     background-color: var(--adui-color-background-white);
     padding: var(--adui-space-sm) 0;
     z-index: 999;
-    box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.15);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform var(--adui-transition-duration) var(--adui-transition-timing-function); /* Add transition for show/hide */
+    transition: transform var(--adui-transition-duration) var(--adui-transition-timing-function);
 }
 
 .adui-sticky-banner-bottom {
@@ -437,7 +463,7 @@ section h2 {
 .adui-sticky-banner-top {
     top: 0;
     border-bottom: 1px solid var(--adui-color-border);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* Shadow direction */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Class to hide sticky banner (controlled by JS) */
@@ -451,16 +477,16 @@ section h2 {
 
 .adui-sticky-banner-bottom .adui-ad-container,
 .adui-sticky-banner-top .adui-ad-container {
-    margin: 0; /* Remove auto margin */
-    border: none; /* Remove border for sticky */
-    box-shadow: none; /* Remove shadow for sticky */
-    background-color: transparent; /* Transparent background */
-    padding: 0; /* Remove padding from container inside sticky */
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
 }
 
 .adui-sticky-banner-bottom .adui-content,
 .adui-sticky-banner-top .adui-content {
-    padding: 0; /* Remove padding from content inside sticky */
+    padding: 0;
 }
 
 
@@ -468,10 +494,10 @@ section h2 {
      position: absolute;
      top: 50%;
      right: var(--adui-space-sm);
-     transform: translateY(-50%); /* Center vertically */
+     transform: translateY(-50%);
      background: none;
      border: none;
-     font-size: 1.2rem; /* Smaller close icon for sticky */
+     font-size: 1.2rem;
      cursor: pointer;
      color: var(--adui-color-text-medium);
      padding: var(--adui-space-xs);
@@ -497,29 +523,29 @@ section h2 {
 .adui-native-ad {
     border: 1px solid var(--adui-color-border);
     border-radius: var(--adui-border-radius-md);
-    padding: var(--adui-space-lg); /* More padding */
+    padding: var(--adui-space-lg);
     margin: var(--adui-space-lg) auto;
     background-color: var(--adui-color-background-white);
-    box-shadow: var(--adui-shadow-md);
-    max-width: 700px; /* Wider max-width */
+    box-shadow: var(--adui-shadow-sm); /* Use sm shadow for native */
+    max-width: 700px;
     text-align: left;
-    display: flex; /* Use flexbox for layout */
+    display: flex;
     flex-direction: column;
 }
 
 .adui-native-ad .adui-label {
     position: static;
     display: inline-block;
-    margin-bottom: var(--adui-space-sm); /* More margin */
+    margin-bottom: var(--adui-space-sm);
     border-radius: var(--adui-border-radius-sm);
-    padding: 0.2rem 0.6rem; /* More padding */
+    padding: 0.2rem 0.6rem;
     font-size: var(--adui-font-size-xs);
     background-color: var(--adui-color-label-bg);
     color: var(--adui-color-text-medium);
 }
 
 .adui-native-ad .adui-native-media {
-    margin-bottom: var(--adui-space-md); /* More margin */
+    margin-bottom: var(--adui-space-md);
 }
 
 .adui-native-ad .adui-native-media img {
@@ -527,53 +553,56 @@ section h2 {
     max-width: 100%;
     height: auto;
     margin: 0;
-    border-radius: 6px; /* More rounded media corners */
+    border-radius: var(--adui-border-radius-sm); /* Use sm radius for media */
 }
 
 .adui-native-ad .adui-native-title {
-    font-size: 1.3rem; /* Larger title */
+    font-size: 1.25rem; /* Slightly smaller title */
     font-weight: var(--adui-font-weight-bold);
-    margin-bottom: 0.6rem; /* More margin */
+    margin-bottom: var(--adui-space-xs); /* Less margin below title */
     color: var(--adui-color-text-dark);
 }
 
 .adui-native-ad .adui-native-body {
-    font-size: var(--adui-font-size-base); /* Slightly larger body text */
+    font-size: var(--adui-font-size-base);
     color: var(--adui-color-text-medium);
-    margin-bottom: var(--adui-space-md); /* More margin */
+    margin-bottom: var(--adui-space-md);
 }
 
 .adui-native-ad .adui-native-cta {
-    display: inline-block;
-    background-color: var(--adui-color-secondary);
+    display: inline-flex; /* Use flex */
+    align-items: center;
+    justify-content: center;
+    background-color: var(--adui-color-accent); /* Use accent color for native CTA */
     color: #fff;
-    padding: 0.6rem 1.5rem; /* More padding */
-    border-radius: 25px; /* Pill shape CTA */
-    font-size: var(--adui-font-size-base);
+    padding: 0.6rem 1.2rem; /* Adjusted padding */
+    border-radius: var(--adui-border-radius-md); /* Standard rounded corners */
+    font-size: var(--adui-font-size-sm); /* Slightly smaller CTA font */
     font-weight: var(--adui-font-weight-semibold);
     text-decoration: none;
-    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function), transform 0.1s ease;
-    align-self: flex-start; /* Align CTA to the left */
+    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function), box-shadow var(--adui-transition-duration) var(--adui-transition-timing-function);
+    align-self: flex-start;
+    box-shadow: var(--adui-shadow-sm);
 }
 
 .adui-native-ad .adui-native-cta:hover {
-    background-color: #27ad60;
-    transform: translateY(-1px);
+    background-color: #218838;
     text-decoration: none;
+    box-shadow: var(--adui-shadow-md);
 }
 
 .adui-native-ad .adui-native-attribution {
-    font-size: var(--adui-font-size-xs); /* Slightly larger attribution */
+    font-size: var(--adui-font-size-xs);
     color: var(--adui-color-text-light);
-    margin-top: var(--adui-space-sm); /* More margin */
+    margin-top: var(--adui-space-sm);
 }
 
 /* Video Ad Container */
 .adui-video-container {
     position: relative;
-    width: 100%; /* Take full width */
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100) */
-    background-color: #000; /* Black background for video area */
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: var(--adui-color-text-dark); /* Dark background for video area */
     border-radius: var(--adui-border-radius-md);
     overflow: hidden;
     margin-bottom: var(--adui-space-md);
@@ -586,7 +615,7 @@ section h2 {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover; /* Ensure video covers the container */
+    object-fit: cover;
 }
 
 .adui-video-overlay {
@@ -595,88 +624,91 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for ad elements */
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly less opaque overlay */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Align items to the bottom */
+    justify-content: flex-end;
     padding: var(--adui-space-md);
     box-sizing: border-box;
     color: #fff;
-    z-index: 5; /* Above video, below controls/close */
-    pointer-events: none; /* Allow clicks to pass through unless on specific elements */
+    z-index: 5;
+    pointer-events: none;
 }
 
 .adui-video-overlay > * {
-    pointer-events: auto; /* Re-enable pointer events for direct children */
+    pointer-events: auto;
 }
 
 
 .adui-video-overlay .adui-label {
     position: static;
     display: inline-block;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly less opaque label bg */
     color: #fff;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--adui-border-radius-sm);
     font-size: var(--adui-font-size-xs);
     margin-bottom: var(--adui-space-xs);
-    align-self: flex-start; /* Align label to the left */
+    align-self: flex-start;
 }
 
 .adui-video-overlay .adui-video-cta {
-    display: inline-block;
-    background-color: var(--adui-color-danger); /* Red CTA */
+    display: inline-flex; /* Use flex */
+    align-items: center;
+    justify-content: center;
+    background-color: var(--adui-color-primary); /* Use primary color for video CTA */
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: var(--adui-border-radius-sm);
     font-size: var(--adui-font-size-sm);
     font-weight: var(--adui-font-weight-semibold);
     text-decoration: none;
-    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function);
-    align-self: flex-start; /* Align CTA to the left */
+    transition: background-color var(--adui-transition-duration) var(--adui-transition-timing-function), box-shadow var(--adui-transition-duration) var(--adui-transition-timing-function);
+    align-self: flex-start;
+    box-shadow: var(--adui-shadow-sm);
 }
 
 .adui-video-overlay .adui-video-cta:hover {
-    background-color: #c0392b;
+    background-color: #0056b3;
     text-decoration: none;
+    box-shadow: var(--adui-shadow-md);
 }
 
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) { /* Medium screens */
-    h1 { font-size: 2.4rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.6rem; }
-    h4 { font-size: 1.2rem; }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.3rem; }
 
     .container {
         padding: 0 var(--adui-space-md);
     }
 
     .site-nav li {
-        margin-left: var(--adui-space-md);
+        margin-left: var(--adui-space-lg);
     }
 
     section {
         padding: var(--adui-space-xl) 0;
-        margin-bottom: var(--adui-space-xl);
     }
 
     .btn {
-        padding: 0.8rem 1.8rem;
-        font-size: var(--adui-font-size-base);
+        padding: 0.75rem 1.25rem;
+        font-size: var(--adui-font-size-sm);
     }
 
     .btn-group .btn {
-        margin-right: var(--adui-space-md);
+        margin-right: var(--adui-space-sm);
     }
 }
 
 
 @media (max-width: 768px) { /* Small screens */
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.7rem; }
-    h3 { font-size: 1.3rem; }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.2rem; }
     h4 { font-size: 1.1rem; }
 
     .site-header .container {
@@ -695,31 +727,30 @@ section h2 {
 
     section {
         padding: var(--adui-space-xl) 0;
-        margin-bottom: var(--adui-space-lg);
     }
 
     .btn-group {
         text-align: center;
     }
     .btn-group .btn {
-        display: block;
-        margin: var(--adui-space-sm) auto;
-        width: 90%;
-        padding: 0.8rem 1.5rem;
+        display: inline-flex;
+        margin: var(--adui-space-sm);
+        width: auto;
+        padding: 0.75rem 1.25rem;
     }
      .btn-group .btn-sm {
-         width: auto;
-         display: inline-block;
-         margin: 0.5rem 0.5rem;
+         padding: 0.5rem 1rem;
+         margin: var(--adui-space-xs);
      }
 
 
     .adui-ad-container {
         margin: var(--adui-space-md) auto;
-        width: 95%;
+        width: 100%; /* Allow full width on small screens */
+        border-radius: var(--adui-border-radius-sm); /* Slightly less rounded */
     }
 
-    /* Adjust fixed size formats to be more flexible on small screens */
+    /* Adjust fixed size formats to be flexible on small screens */
     .adui-medium-rectangle,
     .adui-large-rectangle,
     .adui-leaderboard,
@@ -729,7 +760,7 @@ section h2 {
     .adui-large-mobile-banner {
         width: 100%;
         height: auto; /* Allow height to adjust */
-        min-height: 100px; /* Ensure a minimum height */
+        min-height: 80px; /* Ensure a minimum height */
     }
 
     .adui-medium-rectangle img,
@@ -745,22 +776,24 @@ section h2 {
 
     .adui-interstitial-dialog {
         padding: var(--adui-space-lg);
-        max-width: 98%;
-        max-height: 98%;
+        max-width: 95%;
+        max-height: 95%;
+        border-radius: var(--adui-border-radius-md); /* Slightly less rounded */
     }
 
     .adui-sticky-banner-bottom,
     .adui-sticky-banner-top {
-        padding: var(--adui-space-xs) 0; /* Less padding for sticky on small screens */
+        padding: var(--adui-space-xs) 0;
     }
 
     .adui-sticky-close {
-        padding: var(--adui-space-xs); /* Adjust padding */
-        right: var(--adui-space-xs); /* Adjust position */
+        padding: var(--adui-space-xs);
+        right: var(--adui-space-xs);
     }
 
      .adui-native-ad {
         padding: var(--adui-space-md);
+        border-radius: var(--adui-border-radius-sm); /* Slightly less rounded */
      }
 
      .adui-native-ad .adui-native-media {
@@ -768,7 +801,7 @@ section h2 {
      }
 
      .adui-native-ad .adui-native-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
      }
 
      .adui-native-ad .adui-native-body {
@@ -796,43 +829,42 @@ section h2 {
     scroll-behavior: auto !important;
   }
 
-  /* Remove specific transforms or subtle animations */
   .btn:hover {
       transform: none;
-      box-shadow: var(--adui-shadow-sm); /* Keep base shadow */
+      box-shadow: var(--adui-shadow-sm);
   }
    .adui-ad-container:hover {
-       box-shadow: var(--adui-shadow-md); /* Keep base shadow */
+       box-shadow: var(--adui-shadow-sm); /* Use sm shadow */
    }
    .adui-interstitial-dialog {
-       transform: none; /* Remove scale-in */
+       transform: none;
    }
    .adui-interstitial-close:hover {
-       transform: none; /* Remove rotate */
+       transform: none;
    }
    .adui-sticky-banner-bottom.is-hidden,
    .adui-sticky-banner-top.is-hidden {
-       transform: none; /* Remove slide transition */
-       /* Use display: none or visibility: hidden for instant toggle */
-       display: none; /* Or visibility: hidden; */
+       transform: none;
+       display: none;
    }
-    /* Ensure sticky banners are displayed instantly when not hidden */
     .adui-sticky-banner-bottom:not(.is-hidden),
     .adui-sticky-banner-top:not(.is-hidden) {
-         display: flex; /* Ensure they are displayed when not hidden */
+         display: flex;
     }
 }
 
 
 /* --- Utility Classes --- */
 .text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
 .mb-2 { margin-bottom: var(--adui-space-xs); }
 .mb-4 { margin-bottom: var(--adui-space-md); }
 .mb-6 { margin-bottom: var(--adui-space-lg); }
 .mt-4 { margin-top: var(--adui-space-md); }
 .py-4 { padding-top: var(--adui-space-md); padding-bottom: var(--adui-space-md); }
 .px-4 { padding-left: var(--adui-space-md); padding-right: var(--adui-space-md); }
-.sr-only { /* Visually hide element but keep for screen readers */
+.sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -845,13 +877,13 @@ section h2 {
 }
 
 
-/* --- Website Specific Styles (for index, components, guidelines, customizer) --- */
+/* --- Website Specific Styles (for index, components, guidelines, customizer, license) --- */
 .component-showcase {
     background-color: var(--adui-color-background-white);
     padding: var(--adui-space-xl);
     border-radius: var(--adui-border-radius-lg);
     box-shadow: var(--adui-shadow-md);
-    margin-bottom: var(--adui-space-xl);
+    margin-bottom: var(--adui-space-xxl); /* More space below showcase */
 }
 
 .component-showcase h3 {
@@ -876,12 +908,12 @@ pre {
     margin-bottom: var(--adui-space-md);
     font-size: 0.85rem;
     line-height: 1.4;
-    white-space: pre-wrap; /* Wrap long lines */
+    white-space: pre-wrap;
     word-wrap: break-word;
 }
 
 pre code {
-    color: #ecf0f1; /* Ensure code text is light */
+    color: #ecf0f1;
 }
 
 /* --- Components Page Styles --- */
@@ -893,10 +925,10 @@ pre code {
 .component-search-input {
     padding: 0.8rem 1.5rem;
     border: 1px solid var(--adui-color-border);
-    border-radius: 30px; /* Pill shape */
+    border-radius: 30px;
     font-size: var(--adui-font-size-base);
-    width: 80%; /* Adjust width */
-    max-width: 500px; /* Max width */
+    width: 80%;
+    max-width: 500px;
     box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -904,21 +936,21 @@ pre code {
 .component-search-input:focus {
     outline: none;
     border-color: var(--adui-color-primary);
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Use primary color shadow */
 }
 
 
 .component-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
-    gap: var(--adui-space-lg); /* Space between grid items */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--adui-space-lg);
 }
 
 .component-item {
     background-color: var(--adui-color-background-white);
     padding: var(--adui-space-lg);
     border-radius: var(--adui-border-radius-md);
-    box-shadow: var(--adui-shadow-md);
+    box-shadow: var(--adui-shadow-sm);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -927,14 +959,14 @@ pre code {
 
 .component-item:hover {
     transform: translateY(-3px);
-    box-shadow: var(--adui-shadow-lg);
+    box-shadow: var(--adui-shadow-md);
 }
 
 .component-item h3 {
     margin-top: 0;
     margin-bottom: var(--adui-space-sm);
-    font-size: 1.3rem;
-    border-bottom: none; /* Remove border from item titles */
+    font-size: 1.25rem; /* Slightly smaller title */
+    border-bottom: none;
     padding-bottom: 0;
 }
 
@@ -942,7 +974,7 @@ pre code {
     font-size: var(--adui-font-size-sm);
     color: var(--adui-color-text-medium);
     margin-bottom: var(--adui-space-md);
-    flex-grow: 1; /* Push buttons to bottom */
+    flex-grow: 1;
 }
 
 .component-item .btn-group {
@@ -958,10 +990,7 @@ pre code {
     margin-right: 0;
 }
 
-/* --- Customizer Page Styles (added in customizer.html immersive) --- */
-/* These styles are duplicated in the customizer.html immersive for self-containment
-   but should ideally be in style.css in a real project. Keeping them here for
-   completeness in the style.css file provided. */
+/* --- Customizer Page Styles --- */
 
 .customizer-layout {
     display: grid;
@@ -971,7 +1000,7 @@ pre code {
 
 @media (min-width: 992px) {
     .customizer-layout {
-        grid-template-columns: 1fr 2fr; /* Controls on left, preview on right */
+        grid-template-columns: 1fr 2fr;
     }
 }
 
@@ -998,12 +1027,12 @@ pre code {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 300px; /* Ensure preview area has some height */
+    min-height: 300px;
 }
 
 .customizer-preview .adui-ad-container {
-    margin: 0 auto; /* Center the ad within the preview */
-    max-width: 100%; /* Ensure it doesn't overflow */
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .control-group {
@@ -1040,12 +1069,12 @@ pre code {
 }
 
  .control-group input[type="color"] {
-     padding: 0.2rem; /* Adjust padding for color input */
-     height: 2.5rem; /* Consistent height */
+     padding: 0.2rem;
+     height: 2.5rem;
  }
 
 .control-group input[type="range"] {
-    padding: 0; /* Remove padding for range input */
+    padding: 0;
 }
 
 .code-output {
@@ -1057,8 +1086,8 @@ pre code {
 }
 
 .code-output pre {
-    background-color: #2c3e50; /* Dark background for code */
-    color: #ecf0f1; /* Light text */
+    background-color: #2c3e50;
+    color: #ecf0f1;
     padding: var(--adui-space-md);
     border-radius: var(--adui-border-radius-md);
     overflow-x: auto;
@@ -1068,106 +1097,67 @@ pre code {
     word-wrap: break-word;
 }
  .code-output pre code {
-     color: #ecf0f1; /* Ensure code text is light */
+     color: #ecf0f1;
  }
 
 
 /* Specific preview adjustments for some components */
 .customizer-preview #previewContainer .adui-interstitial-overlay {
-     position: relative; /* Change position for preview */
-     visibility: visible; /* Make visible */
-     opacity: 1; /* Make opaque */
-     background-color: rgba(0, 0, 0, 0.1); /* Lighter background for preview */
-     height: 400px; /* Give it a fixed height for preview */
+     position: relative;
+     visibility: visible;
+     opacity: 1;
+     background-color: rgba(0, 0, 0, 0.1);
+     height: 400px;
      width: 100%;
-     overflow: hidden; /* Hide overflow */
-     pointer-events: none; /* Disable interactions in preview */
+     overflow: hidden;
+     pointer-events: none;
 }
  .customizer-preview #previewContainer .adui-interstitial-dialog {
-     position: absolute; /* Keep dialog absolute within the relative overlay */
+     position: absolute;
      top: 50%;
      left: 50%;
-     transform: translate(-50%, -50%) scale(1); /* Center it */
+     transform: translate(-50%, -50%) scale(1);
      max-width: 90%;
      max-height: 90%;
-     pointer-events: auto; /* Re-enable pointer events inside dialog */
+     pointer-events: auto;
      overflow: auto;
  }
   .customizer-preview #previewContainer .adui-interstitial-close {
-      pointer-events: auto; /* Re-enable pointer events for the close button */
+      pointer-events: auto;
   }
 
  .customizer-preview #previewContainer .adui-sticky-banner-bottom,
  .customizer-preview #previewContainer .adui-sticky-banner-top {
-     position: relative; /* Change position for preview */
-     transform: none; /* Remove transform */
-     box-shadow: none; /* Remove shadow */
-     border: 1px dashed var(--adui-color-border); /* Add dashed border */
-     margin: var(--adui-space-md) auto; /* Add margin */
-     width: 95%; /* Allow width adjustment */
-     padding: var(--adui-space-sm); /* Add padding */
+     position: relative;
+     transform: none;
+     box-shadow: none;
+     border: 1px dashed var(--adui-color-border);
+     margin: var(--adui-space-md) auto;
+     width: 95%;
+     padding: var(--adui-space-sm);
  }
  .customizer-preview #previewContainer .adui-sticky-close {
-     position: static; /* Make close button static for preview */
+     position: static;
      transform: none;
      margin-left: var(--adui-space-md);
-     align-self: center; /* Center vertically */
+     align-self: center;
  }
 
 
-/* --- Accessibility: Reduced Motion --- */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Remove specific transforms or subtle animations */
-  .btn:hover {
-      transform: none;
-      box-shadow: var(--adui-shadow-sm); /* Keep base shadow */
-  }
-   .adui-ad-container:hover {
-       box-shadow: var(--adui-shadow-md); /* Keep base shadow */
-   }
-   .adui-interstitial-dialog {
-       transform: none; /* Remove scale-in */
-   }
-   .adui-interstitial-close:hover {
-       transform: none; /* Remove rotate */
-   }
-   .adui-sticky-banner-bottom.is-hidden,
-   .adui-sticky-banner-top.is-hidden {
-       transform: none; /* Remove slide transition */
-       /* Use display: none or visibility: hidden for instant toggle */
-       display: none; /* Or visibility: hidden; */
-   }
-    /* Ensure sticky banners are displayed instantly when not hidden */
-    .adui-sticky-banner-bottom:not(.is-hidden),
-    .adui-sticky-banner-top:not(.is-hidden) {
-         display: flex; /* Ensure they are displayed when not hidden */
-    }
+/* --- Footer Styles --- */
+.site-footer {
+    background-color: var(--adui-color-text-dark); /* Dark footer */
+    color: var(--adui-color-text-light); /* Light grey text */
+    padding: var(--adui-space-xl) 0;
+    font-size: var(--adui-font-size-sm);
+    margin-top: var(--adui-space-xxl); /* Space above footer */
 }
 
+.site-footer a {
+    color: var(--adui-color-text-light);
+    text-decoration: underline;
+}
 
-/* --- Utility Classes --- */
-.text-center { text-align: center; }
-.mb-2 { margin-bottom: var(--adui-space-xs); }
-.mb-4 { margin-bottom: var(--adui-space-md); }
-.mb-6 { margin-bottom: var(--adui-space-lg); }
-.mt-4 { margin-top: var(--adui-space-md); }
-.py-4 { padding-top: var(--adui-space-md); padding-bottom: var(--adui-space-md); }
-.px-4 { padding-left: var(--adui-space-md); padding-right: var(--adui-space-md); }
-.sr-only { /* Visually hide element but keep for screen readers */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+.site-footer a:hover {
+    color: var(--adui-color-background-white);
 }

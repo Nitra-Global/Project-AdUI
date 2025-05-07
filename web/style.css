@@ -5,7 +5,7 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #333; /* Dark grey text */
-    background-color: #f8f8f8; /* Light grey background */
+    background-color: #f4f7f6; /* Soft light background */
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
@@ -13,62 +13,65 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1280px; /* Slightly wider container */
     margin: 0 auto;
-    padding: 0 1rem; /* Add padding on smaller screens */
-}
-
-@media (min-width: 768px) {
-    .container {
-        padding: 0 2rem; /* Increase padding on larger screens */
-    }
+    padding: 0 1.5rem; /* Consistent padding */
 }
 
 h1, h2, h3, h4 {
     font-weight: 700; /* Bold */
     margin-bottom: 1rem;
-    color: #222; /* Even darker grey */
+    color: #2c3e50; /* Darker blue-grey heading color */
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
+h1 { font-size: 2.8rem; margin-bottom: 1.5rem;}
+h2 { font-size: 2.2rem; margin-bottom: 1.8rem;}
+h3 { font-size: 1.7rem; margin-bottom: 1.2rem;}
+h4 { font-size: 1.3rem; margin-bottom: 0.8rem;}
 
 p {
     margin-bottom: 1rem;
 }
 
 a {
-    color: #007bff; /* Blue link color */
+    color: #3498db; /* Primary blue link color */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #2980b9; /* Darker blue on hover */
     text-decoration: underline;
+}
+
+ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
 }
 
 /* --- Header Styles --- */
 .site-header {
     background-color: #2c3e50; /* Dark blue-grey */
     color: #ecf0f1; /* Light grey */
-    padding: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.2rem 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 .site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
+    flex-wrap: wrap;
 }
 
 .site-header h1 {
     margin: 0;
     color: #ecf0f1;
-    font-size: 1.8rem;
+    font-size: 2rem;
 }
 
 .site-nav ul {
@@ -76,26 +79,30 @@ a:hover {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-wrap: wrap; /* Allow nav items to wrap */
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .site-nav li {
-    margin-left: 1.5rem;
+    margin-left: 1.8rem; /* Increased spacing */
+    margin-bottom: 0; /* Remove margin-bottom from list items in nav */
 }
 
 .site-nav a {
     color: #ecf0f1;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.9;
 }
 
 .site-nav a:hover {
-    color: #bdc3c7; /* Lighter grey on hover */
-    text-decoration: underline;
+    color: #bdc3c7;
+    text-decoration: none; /* Prevent underline on hover for nav */
+    opacity: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .site-header .container {
         flex-direction: column;
         text-align: center;
@@ -107,114 +114,125 @@ a:hover {
         justify-content: center;
     }
     .site-nav li {
-        margin: 0 0.5rem; /* Adjust spacing for wrapped items */
+        margin: 0.5rem 0.8rem; /* Adjust spacing for wrapped items */
     }
 }
 
-
 /* --- Section Styles --- */
 section {
-    padding: 3rem 0;
-    margin-bottom: 2rem;
+    padding: 4rem 0; /* More vertical padding */
+    margin-bottom: 3rem; /* More space between sections */
 }
 
 section:nth-of-type(odd) {
-    background-color: #fff; /* White background for odd sections */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    border-radius: 10px; /* More rounded corners */
 }
 
 section:nth-of-type(even) {
-     background-color: #eef2f7; /* Very light blue background for even sections */
-     border-radius: 8px;
+     background-color: #eef2f7;
+     border-radius: 10px;
 }
 
 section h2 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 /* --- Button Styles --- */
 .btn {
     display: inline-block;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px; /* Pill shape */
-    font-size: 1rem;
+    padding: 0.9rem 2rem; /* Larger padding */
+    border-radius: 30px; /* More pronounced pill shape */
+    font-size: 1.05rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
     border: none;
-    text-decoration: none; /* Ensure no underline on buttons */
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-1px); /* Subtle lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary {
-    background-color: #3498db; /* Blue */
+    background-color: #3498db;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9; /* Darker blue */
+    background-color: #2980b9;
 }
 
 .btn-secondary {
-    background-color: #bdc3c7; /* Light grey */
+    background-color: #ecf0f1; /* Lighter grey */
     color: #333;
     border: 1px solid #bdc3c7;
 }
 
 .btn-secondary:hover {
-    background-color: #95a5a6; /* Darker grey */
-    border-color: #95a5a6;
+    background-color: #dcdfe4; /* Slightly darker grey */
+    border-color: #aeb6bf;
 }
 
 .btn-group .btn {
-    margin-right: 1rem;
+    margin-right: 1.5rem; /* Increased spacing */
 }
 
 .btn-group .btn:last-child {
     margin-right: 0;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .btn-group {
         text-align: center;
     }
     .btn-group .btn {
         display: block;
-        margin: 0.5rem auto;
-        width: 80%; /* Make buttons wider on small screens */
+        margin: 0.6rem auto; /* Adjust spacing */
+        width: 90%; /* Make buttons wider */
+        padding: 0.8rem 1.5rem; /* Adjust padding */
     }
 }
-
 
 /* --- Ad Component Base Styles --- */
 .adui-ad-container {
     position: relative;
-    border: 1px solid #d3d3d3; /* Light grey border */
-    border-radius: 5px;
+    border: 1px solid #e0e0e0; /* Lighter grey border */
+    border-radius: 8px; /* More rounded corners */
     overflow: hidden;
-    margin: 1rem auto; /* Center the block element */
+    margin: 1.5rem auto; /* More margin */
     background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    font-size: 0.95rem; /* Slightly larger text */
     color: #555;
+    transition: box-shadow 0.3s ease; /* Add transition */
 }
+
+.adui-ad-container:hover {
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); /* Subtle shadow on hover */
+}
+
 
 .adui-label {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #f0f0f0; /* Very light grey */
-    color: #666; /* Medium grey */
-    font-size: 0.7rem; /* Smaller label text */
-    padding: 0.2rem 0.5rem;
-    border-bottom-right-radius: 5px;
+    background-color: #eef2f7; /* Matches even section background */
+    color: #555; /* Darker grey */
+    font-size: 0.75rem; /* Slightly larger label */
+    padding: 0.3rem 0.6rem; /* More padding */
+    border-bottom-right-radius: 8px; /* Matches container radius */
     z-index: 10;
     font-weight: 600;
     text-transform: uppercase;
@@ -228,7 +246,7 @@ section h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem; /* Add some padding */
+    padding: 1rem; /* More padding */
     box-sizing: border-box;
 }
 
@@ -237,6 +255,7 @@ section h2 {
     max-width: 100%;
     height: auto;
     margin: 0 auto;
+    border-radius: 4px; /* Slightly rounded image corners */
 }
 
 /* --- Specific Ad Format Styles --- */
@@ -253,8 +272,8 @@ section h2 {
 
 /* Responsive Banner */
 .adui-banner {
-    width: 100%; /* Takes full width of container */
-    min-height: 90px; /* Minimum height */
+    width: 100%;
+    min-height: 90px;
     /* Flexbox centering from base styles applies */
 }
 
@@ -265,153 +284,287 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.8); /* Darker, more opaque overlay */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* High z-index to cover everything */
-    visibility: hidden; /* Hidden by default */
+    z-index: 1000;
+    visibility: hidden;
     opacity: 0;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    /* Add pointer-events: none; when hidden to prevent interaction */
+    pointer-events: none;
 }
 
 .adui-interstitial-overlay.is-visible {
     visibility: visible;
     opacity: 1;
+    pointer-events: auto; /* Enable interaction when visible */
 }
 
 .adui-interstitial-dialog {
     position: relative;
     background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    max-width: 90%; /* Max width relative to viewport */
-    max-height: 90%; /* Max height relative to viewport */
-    overflow: auto; /* Add scrolling if content is too large */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 2rem; /* More padding */
+    border-radius: 10px;
+    max-width: 95%; /* Wider max width */
+    max-height: 95%; /* Taller max height */
+    overflow: auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+    transform: scale(0.95); /* Subtle scale-in effect */
+    transition: transform 0.3s ease;
+    outline: none; /* Remove default focus outline */
 }
 
+.adui-interstitial-overlay.is-visible .adui-interstitial-dialog {
+    transform: scale(1); /* Scale to normal when visible */
+}
+
+
 .adui-interstitial-dialog .adui-content {
-    padding: 0; /* Remove inner padding for interstitial content */
+    padding: 0;
 }
 
 
 .adui-interstitial-close {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 0.8rem; /* More space from top */
+    right: 0.8rem; /* More space from right */
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Larger close icon */
     cursor: pointer;
-    color: #555;
-    padding: 0.5rem; /* Increase clickable area */
+    color: #777; /* Medium grey */
+    padding: 0.6rem; /* Larger clickable area */
     line-height: 1;
-    z-index: 10; /* Ensure it's above ad content */
-    transition: color 0.3s ease;
+    z-index: 10;
+    transition: color 0.3s ease, transform 0.2s ease;
+    border-radius: 50%; /* Rounded button */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly visible background */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .adui-interstitial-close:hover {
     color: #333;
+    transform: rotate(90deg); /* Subtle rotate effect */
+    background-color: rgba(255, 255, 255, 1);
 }
 
 /* Ensure close button is keyboard focusable and has outline */
 .adui-interstitial-close:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
+    outline: 2px solid #3498db; /* Blue outline */
+    outline-offset: 3px; /* Offset outline */
 }
 
 
 /* Sticky Banner */
-.adui-sticky-banner-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    border-top: 1px solid #d3d3d3;
-    padding: 0.5rem 0;
-    z-index: 999; /* Below interstitial, above regular content */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center; /* Center the ad content */
-    align-items: center;
-}
-
+.adui-sticky-banner-bottom,
 .adui-sticky-banner-top {
     position: fixed;
-    top: 0;
     left: 0;
     width: 100%;
     background-color: #fff;
-    border-bottom: 1px solid #d3d3d3;
     padding: 0.5rem 0;
     z-index: 999;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow */
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease; /* Add transition for show/hide */
 }
+
+.adui-sticky-banner-bottom {
+    bottom: 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.adui-sticky-banner-top {
+    top: 0;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* Shadow direction */
+}
+
+/* Optional: Class to hide sticky banner */
+.adui-sticky-banner-bottom.is-hidden {
+    transform: translateY(100%);
+}
+.adui-sticky-banner-top.is-hidden {
+    transform: translateY(-100%);
+}
+
 
 .adui-sticky-banner-bottom .adui-ad-container,
 .adui-sticky-banner-top .adui-ad-container {
-    margin: 0; /* Remove auto margin */
-    border: none; /* Remove border for sticky */
-    box-shadow: none; /* Remove shadow for sticky */
-    background-color: transparent; /* Transparent background */
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0; /* Remove padding from container inside sticky */
 }
+
+.adui-sticky-banner-bottom .adui-content,
+.adui-sticky-banner-top .adui-content {
+    padding: 0; /* Remove padding from content inside sticky */
+}
+
+
+.adui-sticky-close {
+     position: absolute;
+     top: 50%;
+     right: 0.5rem;
+     transform: translateY(-50%); /* Center vertically */
+     background: none;
+     border: none;
+     font-size: 1.2rem; /* Smaller close icon for sticky */
+     cursor: pointer;
+     color: #777;
+     padding: 0.4rem;
+     line-height: 1;
+     z-index: 10;
+     transition: color 0.3s ease;
+     border-radius: 50%;
+     background-color: rgba(255, 255, 255, 0.9);
+     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.adui-sticky-close:hover {
+    color: #333;
+}
+
+.adui-sticky-close:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 3px;
+}
+
 
 /* Basic Native Ad Structure */
 .adui-native-ad {
-    border: 1px solid #d3d3d3;
-    border-radius: 5px;
-    padding: 1rem;
-    margin: 1rem auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem; /* More padding */
+    margin: 1.5rem auto;
     background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    max-width: 600px; /* Example max-width for native */
-    text-align: left; /* Native ads usually left-aligned */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    max-width: 700px; /* Wider max-width */
+    text-align: left;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column;
 }
 
 .adui-native-ad .adui-label {
-    position: static; /* Label is part of the flow */
+    position: static;
     display: inline-block;
-    margin-bottom: 0.5rem;
-    border-radius: 3px;
-    padding: 0.1rem 0.4rem;
-    font-size: 0.6rem;
-    background-color: #e0e0e0;
-    color: #444;
+    margin-bottom: 0.8rem; /* More margin */
+    border-radius: 4px; /* Slightly more rounded */
+    padding: 0.2rem 0.6rem; /* More padding */
+    font-size: 0.7rem;
+    background-color: #eef2f7;
+    color: #555;
 }
 
 .adui-native-ad .adui-native-media {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem; /* More margin */
 }
 
 .adui-native-ad .adui-native-media img {
     display: block;
     max-width: 100%;
     height: auto;
-    margin: 0; /* Align left */
-    border-radius: 4px;
+    margin: 0;
+    border-radius: 6px; /* More rounded media corners */
 }
 
 .adui-native-ad .adui-native-title {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Larger title */
     font-weight: 700;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem; /* More margin */
     color: #333;
 }
 
 .adui-native-ad .adui-native-body {
-    font-size: 0.9rem;
+    font-size: 1rem; /* Slightly larger body text */
     color: #555;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.2rem; /* More margin */
 }
 
 .adui-native-ad .adui-native-cta {
     display: inline-block;
     background-color: #2ecc71; /* Green */
+    color: #fff;
+    padding: 0.6rem 1.5rem; /* More padding */
+    border-radius: 25px; /* Pill shape CTA */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    align-self: flex-start; /* Align CTA to the left */
+}
+
+.adui-native-ad .adui-native-cta:hover {
+    background-color: #27ad60;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.adui-native-ad .adui-native-attribution {
+    font-size: 0.75rem; /* Slightly larger attribution */
+    color: #888;
+    margin-top: 1rem; /* More margin */
+}
+
+/* Video Ad Container */
+.adui-video-container {
+    position: relative;
+    width: 100%; /* Take full width */
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100) */
+    background-color: #000; /* Black background for video area */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.adui-video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.adui-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for ad elements */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align items to the bottom */
+    padding: 1rem;
+    box-sizing: border-box;
+    color: #fff;
+    z-index: 5; /* Above video, below controls/close */
+    pointer-events: none; /* Allow clicks to pass through unless on specific elements */
+}
+
+.adui-video-overlay .adui-label {
+    position: static;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    align-self: flex-start; /* Align label to the left */
+    pointer-events: auto; /* Enable pointer events on label */
+}
+
+.adui-video-overlay .adui-video-cta {
+    display: inline-block;
+    background-color: #e74c3c; /* Red CTA */
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -419,30 +572,85 @@ section h2 {
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    align-self: flex-start; /* Align CTA to the left */
+    pointer-events: auto; /* Enable pointer events on CTA */
 }
 
-.adui-native-ad .adui-native-cta:hover {
-    background-color: #27ad60; /* Darker green */
+.adui-video-overlay .adui-video-cta:hover {
+    background-color: #c0392b;
     text-decoration: none;
-}
-
-.adui-native-ad .adui-native-attribution {
-    font-size: 0.7rem;
-    color: #888;
-    margin-top: 0.5rem;
 }
 
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
+@media (max-width: 992px) { /* Medium screens */
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.6rem; }
+    h4 { font-size: 1.2rem; }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .site-nav li {
+        margin-left: 1rem;
+    }
+
+    section {
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+    }
+
+    .btn-group .btn {
+        margin-right: 1rem;
+    }
+}
+
+
+@media (max-width: 768px) { /* Small screens */
     h1 { font-size: 2rem; }
     h2 { font-size: 1.7rem; }
     h3 { font-size: 1.3rem; }
     h4 { font-size: 1.1rem; }
 
+    .site-header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .site-header h1 {
+        margin-bottom: 1rem;
+    }
+    .site-nav ul {
+        justify-content: center;
+    }
+    .site-nav li {
+        margin: 0.5rem 0.8rem;
+    }
+
+    section {
+        padding: 2rem 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-group {
+        text-align: center;
+    }
+    .btn-group .btn {
+        display: block;
+        margin: 0.6rem auto;
+        width: 90%;
+        padding: 0.8rem 1.5rem;
+    }
+
     .adui-ad-container {
-        margin: 1rem auto; /* Keep margin */
-        width: 95%; /* Allow containers to take more width on small screens */
+        margin: 1rem auto;
+        width: 95%;
     }
 
     /* Adjust fixed size formats to be more flexible on small screens */
@@ -453,8 +661,8 @@ section h2 {
     .adui-wide-skyscraper,
     .adui-mobile-banner,
     .adui-large-mobile-banner {
-        width: 100%; /* Take full width */
-        height: auto; /* Auto height */
+        width: 100%;
+        height: auto; /* Allow height to adjust */
         min-height: 100px; /* Ensure a minimum height */
     }
 
@@ -465,18 +673,23 @@ section h2 {
     .adui-wide-skyscraper img,
     .adui-mobile-banner img,
     .adui-large-mobile-banner img {
-         /* Images inside fixed-size containers on mobile should still be responsive */
          max-width: 100%;
          height: auto;
     }
 
-
     .adui-interstitial-dialog {
-        padding: 1rem;
+        padding: 1.5rem;
+        max-width: 98%; /* Even wider on small screens */
+        max-height: 98%;
+    }
+
+    .adui-sticky-banner-bottom,
+    .adui-sticky-banner-top {
+        padding: 0.3rem 0; /* Less padding for sticky on small screens */
     }
 }
 
-/* --- Utility Classes (Optional, but helpful) --- */
+/* --- Utility Classes --- */
 .text-center { text-align: center; }
 .mb-2 { margin-bottom: 0.5rem; }
 .mb-4 { margin-bottom: 1rem; }
@@ -484,19 +697,51 @@ section h2 {
 .mt-4 { margin-top: 1rem; }
 .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
 .px-4 { padding-left: 1rem; padding-right: 1rem; }
+.sr-only { /* Visually hide element but keep for screen readers */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 
 /* Code Block Styling for Website */
 pre {
     background-color: #eef2f7;
     padding: 1rem;
     border-radius: 5px;
-    overflow-x: auto; /* Add horizontal scroll for wide code */
+    overflow-x: auto;
     margin-bottom: 1rem;
     font-size: 0.85rem;
     line-height: 1.4;
+    white-space: pre-wrap; /* Wrap long lines */
+    word-wrap: break-word;
 }
 
 code {
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+.component-showcase {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.component-showcase h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.component-showcase .adui-ad-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}

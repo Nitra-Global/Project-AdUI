@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad UI Guidelines - Project AdUI</title>
+    <title>Ad UI Guidelines - Project AdUI (2025 Edition)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +16,7 @@
                 <ul>
                     <li><a href="index.html#components">Components</a></li>
                     <li><a href="guidelines.html">Guidelines</a></li>
-                    <li><a href="https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME" target="_blank">GitHub</a></li>
+                    <li><a href="https://github.com/Nitra-Global/Project-AdUI/" target="_blank">GitHub</a></li>
                 </ul>
             </nav>
         </div>
@@ -25,63 +25,70 @@
     <main>
         <section id="guidelines-content">
             <div class="container">
-                <h2>Ad UI Guidelines: User Experience and Accessibility</h2>
+                <h2>Ad UI Guidelines: User Experience and Accessibility (2025 Edition)</h2>
 
-                <p>Integrating advertisements into a website or application requires careful consideration to ensure a positive user experience and meet accessibility standards. Project AdUI components are built with these principles in mind, but proper implementation is key.</p>
-                <p>These guidelines provide recommendations for using Project AdUI components effectively and general best practices for ad UI design.</p>
+                <p>Integrating advertisements into a website or application requires careful consideration to ensure a positive user experience and meet evolving accessibility standards. Project AdUI components are built with these principles in mind, but proper implementation is crucial for success.</p>
+                <p>These guidelines provide recommendations for using Project AdUI components effectively and general best practices for ad UI design in 2025 and beyond.</p>
 
-                <h3>1. Clear Identification</h3>
-                <p>Users should always be able to easily distinguish ad content from editorial or application content.</p>
+                <h3>1. Clear Identification and Transparency</h3>
+                <p>Users must always be able to easily and immediately distinguish ad content from editorial or application content. Transparency builds trust.</p>
                 <ul>
-                    <li><strong>Visual Cues:</strong> Clearly label ad containers with text like "Advertisement," "Sponsored," or "Ad." Place this label prominently near the ad unit. Project AdUI components include a `.adui-label` for this purpose.</li>
-                    <li><strong>Separation:</strong> Use visual separation (borders, background colors, spacing) to distinguish the ad unit from surrounding content. The base `.adui-ad-container` class provides a border and background.</li>
-                    <li><strong>Consistent Styling:</strong> While ads may have different creative, the ad *container* provided by Project AdUI should have consistent styling cues (like the label and border) across your site.</li>
+                    <li><strong>Prominent Labeling:</strong> Clearly label ad containers with text like "Advertisement," "Sponsored," or "Ad." The `.adui-label` class is designed for this. Ensure the label has sufficient contrast and is easily readable.</li>
+                    <li><strong>Visual Separation:</strong> Use distinct visual cues such as borders, subtle background colors, and adequate spacing to clearly separate the ad unit from surrounding content. The base `.adui-ad-container` class provides a starting point.</li>
+                    <li><strong>Consistent Styling:</strong> While ad creatives will vary, the ad *container* and its identifying label should maintain a consistent look and feel across your site to help users quickly recognize ad units.</li>
+                    <li><strong>Disclosure for Native Ads:</strong> For native ad formats, ensure the "Sponsored" or "Advertisement" label is clearly visible and not hidden or disguised. Attribution (e.g., "by Advertiser Name") should also be present.</li>
                 </ul>
 
-                 <h3>2. Non-Intrusiveness</h3>
-                <p>Avoid designs that aggressively disrupt the user's flow or hide content.</p>
+                 <h3>2. Non-Intrusiveness and User Control</h3>
+                <p>Avoid designs that aggressively disrupt the user's flow, hide content, or prevent users from easily dismissing ads.</p>
                 <ul>
-                    <li><strong>Avoid Pop-ups (Unless User-Initiated):</strong> Unsolicited pop-up ads are highly disruptive. If using modal or interstitial ads, ensure they can be easily closed and consider triggering them at natural break points in the user journey (e.g., between page loads, after completing a task), not unexpectedly.</li>
-                    <li><strong>Clear Close Mechanisms:</strong> For any ad that overlays content (interstitials, sticky banners), provide a large, easily clickable, and clearly visible close button. The `.adui-interstitial-close` class is provided for this.</li>
-                    <li><strong>Respect Content Flow:</strong> Place ads in locations that don't break the reading flow or push essential content below the fold unnecessarily.</li>
-                    <li><strong>Limit Animation/Sound:</strong> Avoid autoplaying sound or overly distracting animations that can be annoying or disorienting. If animations are used, they should be subtle and short.</li>
+                    <li><strong>Avoid Unsolicited Pop-ups:</strong> Unsolicited pop-up ads are highly disruptive and negatively impact user experience. If using modal or interstitial ads, they should ideally be triggered at natural break points in the user journey (e.g., between page loads, after completing a task) and *never* appear unexpectedly or on page load without a clear user action.</li>
+                    <li><strong>Prominent and Accessible Close Mechanisms:</strong> For any ad that overlays content (interstitials, sticky banners), provide a large, easily clickable, and clearly visible close button. The `.adui-interstitial-close` and `.adui-sticky-close` classes are provided. Ensure these buttons are easily operable by both mouse and touch, and are keyboard focusable.</li>
+                    <li><strong>Respect Content Flow:</strong> Place static ad units in locations that do not break the reading flow, push essential content below the fold unnecessarily, or require excessive scrolling to access primary content.</li>
+                    <li><strong>Minimize Distraction:</strong> Avoid autoplaying sound or overly distracting, flashing animations that can be annoying, disorienting, or trigger photosensitive reactions. If animations are used, they should be subtle, short, and non-looping unless user-initiated.</li>
+                    <li><strong>Sticky Banner Considerations:</strong> While sticky banners can be effective, they occupy screen real estate. Always provide a clear close button for sticky formats and consider implementing a delay before they appear or allowing users to permanently dismiss them.</li>
                 </ul>
 
-                 <h3>3. Accessibility (WCAG Compliance)</h3>
-                <p>Ensure ad UIs are usable by people with disabilities.</p>
+                 <h3>3. Accessibility (WCAG 2.2 Compliance)</h3>
+                <p>Ensure ad UIs are usable by people with disabilities, adhering to the latest Web Content Accessibility Guidelines (WCAG 2.2).</p>
                 <ul>
-                    <li><strong>Semantic HTML:</strong> Use appropriate HTML elements. While an ad container might be a `div`, consider if roles like `complementary` or `region` are appropriate depending on context, along with `aria-label` if the visual label isn't sufficient for screen readers.</li>
-                    <li><strong>Keyboard Navigation:</strong> If an ad component has interactive elements (like a close button), ensure they are reachable and operable using a keyboard (`Tab`, `Enter`, `Space`). Ensure focus outlines are visible (handled by default browser styles or custom focus styles).</li>
-                    <li><strong>Sufficient Color Contrast:</strong> Ensure text labels ("Advertisement", the close button 'X') have sufficient color contrast against their background (WCAG AA or AAA). The default styles aim for this.</li>
-                    <li><strong>Alt Text for Images:</strong> All ad images must have descriptive `alt` text for screen reader users. This is typically handled when the ad creative is served, but the UI container should accommodate it.</li>
-                    <li><strong>Focus Indicators:</strong> Ensure that when interactive elements within the ad (like a close button) receive keyboard focus, there is a clear visual indicator.</li>
-                    <li><strong>Screen Reader Annoucements:</strong> For interstitial or modal ads that appear suddenly, consider using ARIA live regions or managing focus to inform screen reader users that new content has appeared. Basic JS for the interstitial demo includes a note about focus management.</li>
+                    <li><strong>Semantic HTML:</strong> Use appropriate HTML5 elements. While ad containers are often `div` elements, consider adding ARIA roles like `complementary` or `region` where appropriate, along with `aria-label` if the visual label needs additional context for screen readers.</li>
+                    <li><strong>Keyboard Navigation:</strong> All interactive elements within an ad unit (especially close buttons, links, or video controls) must be reachable and operable using a keyboard (`Tab`, `Shift+Tab`, `Enter`, `Space`). Ensure a logical tab order.</li>
+                    <li><strong>Visible Focus Indicators:</strong> Ensure that when interactive elements receive keyboard focus, there is a clear, visible focus outline. The provided CSS enhances default focus styles.</li>
+                    <li><strong>Sufficient Color Contrast:</strong> All text within the ad UI (labels, body text, buttons) must have sufficient color contrast against its background to be readable by users with low vision (WCAG AA or AAA). The default styles aim for this, but verify with your ad creative.</li>
+                    <li><strong>Alt Text for Images:</strong> All ad images must have descriptive `alt` text that conveys the purpose or content of the image for screen reader users. This is crucial for ad creatives.</li>
+                    <li><strong>Accessible Link Text:</strong> Links within ads should have clear and descriptive text (e.g., "Learn more about Product X") rather than generic text like "Click Here."</li>
+                    <li><strong>Screen Reader Announcements (for Overlays):</strong> For interstitial or modal ads that appear suddenly, implement JavaScript to manage focus and potentially use ARIA live regions to inform screen reader users that new content has appeared and they are now in a modal dialog. The provided interstitial JS includes basic focus management notes.</li>
+                    <li><strong>Video Accessibility:</strong> For video ads, ensure players are keyboard controllable, and consider providing captions or transcripts.</li>
                 </ul>
 
-                 <h3>4. Performance</h3>
-                <p>Ad UIs should not significantly slow down page loading or responsiveness.</p>
+                 <h3>4. Performance and Efficiency</h3>
+                <p>Ad UIs should not significantly slow down page loading, impact responsiveness, or consume excessive resources.</p>
                 <ul>
-                    <li><strong>Efficient CSS:</strong> Project AdUI CSS is designed to be lean. Avoid adding overly complex or blocking styles.</li>
-                    <li><strong>Lazy Loading:</strong> Consider implementing lazy loading for ad units that are not immediately visible in the viewport. This can improve initial page load time.</li>
-                    <li><strong>Minimize JavaScript:</strong> Use JavaScript only when necessary for functionality (like closing) and ensure it's non-blocking.</li>
+                    <li><strong>Lean Code:</strong> Project AdUI CSS and JS are designed to be lightweight. Avoid adding overly complex styles or blocking scripts related to ads.</li>
+                    <li><strong>Lazy Loading:</strong> Implement lazy loading for ad units that are not immediately visible in the user's viewport. This can significantly improve initial page load time and perceived performance.</li>
+                    <li><strong>Asynchronous Loading:</strong> Ensure any external ad-serving scripts or ad creatives are loaded asynchronously to prevent them from blocking the rendering of your main page content.</li>
+                    <li><strong>Optimize Ad Creatives:</strong> Encourage or require the use of optimized images and videos for ad creatives to minimize file sizes.</li>
                 </ul>
 
-                 <h3>5. Responsiveness</h3>
-                <p>Ad UIs must adapt to different screen sizes and orientations.</p>
+                 <h3>5. Responsiveness and Adaptive Design</h3>
+                <p>Ad UIs must adapt seamlessly to different screen sizes, orientations, and resolutions.</p>
                 <ul>
-                    <li><strong>Fluid Layouts:</strong> Use flexible CSS units (`%`, `vw`), Flexbox, or CSS Grid to ensure ad containers and their contents resize appropriately. Custom CSS in `style.css` handles responsiveness for various formats.</li>
-                    <li><strong>Breakpoints:</strong> Use media queries to adjust layout, sizing, or even display different ad sizes based on the screen width.</li>
-                    <li><strong>Touch Targets:</strong> Ensure interactive elements like close buttons are large enough and have sufficient padding/margin to be easily tapped on touch devices.</li>
+                    <li><strong>Fluid Layouts:</strong> Utilize flexible CSS units (`%`, `vw`, `fr`), Flexbox, and CSS Grid to ensure ad containers and their contents resize gracefully. The provided CSS uses these techniques.</li>
+                    <li><strong>Media Queries:</strong> Use CSS media queries to adjust layout, sizing, font sizes, or even display different ad sizes based on specific breakpoints (e.g., showing a mobile banner on small screens and a leaderboard on larger screens).</li>
+                    <li><strong>Flexible Images and Media:</strong> Ensure images and video players within ad units scale correctly using `max-width: 100%; height: auto;`.</li>
+                    <li><strong>Touch Target Size:</strong> Ensure interactive elements like close buttons and call-to-action buttons are large enough and have sufficient padding/margin to be easily tapped on touch devices (minimum recommended size is 44x44 CSS pixels).</li>
                 </ul>
 
                  <h3>6. Content Responsibility</h3>
-                <p>While Project AdUI provides the UI container, the content *within* the ad is crucial.</p>
+                <p>While Project AdUI provides the UI container, the content *within* the ad is the responsibility of the advertiser and publisher. However, the UI can help mitigate negative effects of poor content.</p>
                 <ul>
-                    <li><strong>Avoid Deceptive Content:</strong> Ad content should not mimic system dialogs or website navigation elements.</li>
-                    <li><strong>Relevant Content:</strong> While not strictly a UI guideline, showing relevant ads improves user perception and reduces frustration.</li>
+                    <li><strong>Avoid Deceptive Content:</strong> Ad content should never mimic system dialogs, error messages, or website navigation elements. The clear labeling provided by AdUI helps counteract this.</li>
+                    <li><strong>Relevant Content:</strong> While outside the scope of the UI code itself, showing relevant ads significantly improves user perception and reduces frustration.</li>
+                    <li><strong>Malware and Scams:</strong> Implement robust security practices to prevent malicious or scam advertisements from being served through your system.</li>
                 </ul>
 
-                <p>By adhering to these guidelines and utilizing the components provided by Project AdUI, you can create a more respectful, accessible, and effective advertising experience for your users.</p>
+                <p>By adhering to these guidelines and utilizing the components provided by Project AdUI, you can create a more respectful, accessible, performant, and ultimately more effective advertising experience for your users.</p>
 
             </div>
         </section>
@@ -89,10 +96,12 @@
 
     <footer class="site-footer">
         <div class="container text-center">
-            <p>&copy; 2023 Project AdUI. Licensed under the MIT License.</p>
-            <p class="text-sm mt-2">Built with standard HTML and CSS.</p>
+            <p>&copy; 2025 Project AdUI. Licensed under the MIT License.</p>
+            <p class="text-sm mt-2">Built with standard HTML, CSS, and JavaScript.</p>
         </div>
     </footer>
+
+     <script src="script.js"></script>
 
 </body>
 </html>
